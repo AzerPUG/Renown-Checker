@@ -195,12 +195,12 @@ function AZPRenownOnEvent(_, event, ...)
         AZPRenownLevels[curGUID][curCovName] = curCovLevel
         AZPRenownSetLevels(curGUID)
     elseif event == "COVENANT_SANCTUM_RENOWN_LEVEL_CHANGED" then
-        local curCovLevel, prevCovLevel = ...
-        print(string.format("Renown Upgraded from %s to %s!", prevCovLevel, curCovLevel))
+        local curCovLevel = ...
         local curGUID = UnitGUID("PLAYER")
         local curCovID = C_Covenants.GetActiveCovenantID()
         local curCovName = CovenantNames[curCovID]
         AZPRenownLevels[curGUID][curCovName] = curCovLevel
+        AZPRenownSetLevels(curGUID)
     elseif event == "VARIABLES_LOADED" then
         local curCovID = C_Covenants.GetActiveCovenantID()
         local curCovName = CovenantNames[curCovID]
