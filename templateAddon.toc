@@ -1,0 +1,9 @@
+## Interface: 90005
+## Title: |cFFFFFF00templateAddon|r
+## Author: Tex & AzerPUG Gaming Community (www.azerpug.com/discord)
+## Dependencies: templateAddonDependencyAddon
+## Notes: templateAddon is a Template Addon
+## Version: SL 9.0.5 (For actual addon version, check templateAddon.lua)
+## SavedVariablesPerCharacter: templateAddonVariable
+
+templateAddon.lua
