@@ -16,7 +16,7 @@
 [![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/Instagram%20Panel%20Small.png "")](http://www.azerpug.com/instagram "") 
 
 # Description and Features
-***Description and Features Here*** 
+AzerPUG's Renown Checker gives you the ability to check the renown standing for the other covenants. Especially for those who want to farm up more than one covenant, this could be very nice extra information. The WoW API does not lend itself to check the Renown levels of other Covenants other than your current one, so you will need to go through a tiny bit of setup in order to have the AddOn work. As soon as you switch to a Covenant, the AddOn will detect that renown level and save it cross-covenant and cross-login. Until you have been in the covenant with the AddOn active, the 'unknown' covenants will be listed as having 0 renown. 
 
 # Optional Core
 All AzerPUG AddOns are stand-alone and as lightweight as possible.  
