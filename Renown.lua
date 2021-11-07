@@ -119,29 +119,30 @@ function AZPRenownOnLoad()
 end
 
 function AZPRenownOnEvent(_, event, ...)
-    if event == "COVENANT_CHOSEN" then
-        local curCovID = ...
-        local curCovName = CovenantNames[curCovID]
-        local curGUID = UnitGUID("PLAYER")
-        local curCovLevel = C_CovenantSanctumUI.GetRenownLevel()
-        AZPRenownLevels[curGUID][curCovName] = curCovLevel
-        AZPRenownSetLevels(curGUID)
-    elseif event == "COVENANT_SANCTUM_RENOWN_LEVEL_CHANGED" then
-        local curCovLevel, prevCovLevel = ...
-        print(string.format("Renown Upgraded from %s to %s!", prevCovLevel, curCovLevel))
-        local curGUID = UnitGUID("PLAYER")
-        local curCovID = C_Covenants.GetActiveCovenantID()
-        local curCovName = CovenantNames[curCovID]
-        AZPRenownLevels[curGUID][curCovName] = curCovLevel
+    if event == "COVENANT_SANCTUM_RENOWN_LEVEL_CHANGED" then
+        C_Timer.After(1,
+        function()
+            local curGUID = UnitGUID("PLAYER")
+            local curCovID = C_Covenants.GetActiveCovenantID()
+            local curCovName = CovenantNames[curCovID]
+            local curCovLevel = C_CovenantSanctumUI.GetRenownLevel()
+            print(curCovID, "-", curCovName, "-", curCovLevel)
+            AZPRenownLevels[curGUID][curCovName] = curCovLevel
+            AZPRenownSetLevels(curGUID)
+        end)
     elseif event == "VARIABLES_LOADED" then
-        local curCovID = C_Covenants.GetActiveCovenantID()
-        local curCovName = CovenantNames[curCovID]
-        local curGUID = UnitGUID("PLAYER")
-        local curCovLevel = C_CovenantSanctumUI.GetRenownLevel()
-        if AZPRenownLevels == nil then AZPRenownLevels = {} end
-        if AZPRenownLevels[curGUID] == nil then AZPRenownLevels[curGUID] = {NightFae = 0, Venthyr = 0, Necrolord = 0, Kyrian = 0,} end
-        AZPRenownLevels[curGUID][curCovName] = curCovLevel
-        AZPRenownSetLevels(curGUID)
+        C_Timer.After(1,
+        function()
+            local curCovID = C_Covenants.GetActiveCovenantID()
+            local curCovName = CovenantNames[curCovID]
+            local curGUID = UnitGUID("PLAYER")
+            local curCovLevel = C_CovenantSanctumUI.GetRenownLevel()
+            if AZPRenownLevels == nil then AZPRenownLevels = {} end
+            if AZPRenownLevels[curGUID] == nil then AZPRenownLevels[curGUID] = {NightFae = 0, Venthyr = 0, Necrolord = 0, Kyrian = 0,} end
+            print(curGUID, curCovName, curCovLevel)
+            AZPRenownLevels[curGUID][curCovName] = curCovLevel
+            AZPRenownSetLevels(curGUID)
+        end)
     end
 end
 
