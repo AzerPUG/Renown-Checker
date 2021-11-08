@@ -11,7 +11,7 @@ local CovenantNames =
 function AZPRenownOnLoad()
     AZPRenownFrame = CreateFrame("FRAME", nil, UIParent, "BackdropTemplate")
     AZPRenownFrame:SetSize(200, 250)
-    AZPRenownFrame:SetPoint("CENTER", 0, 0)
+    
     AZPRenownFrame:SetBackdrop({
         bgFile = "Interface/Tooltips/UI-Tooltip-Background",
         edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
@@ -24,7 +24,7 @@ function AZPRenownOnLoad()
     AZPRenownFrame:SetMovable(true)
     AZPRenownFrame:RegisterForDrag("LeftButton")
     AZPRenownFrame:SetScript("OnDragStart", AZPRenownFrame.StartMoving)
-    AZPRenownFrame:SetScript("OnDragStop", function() AZPRenownFrame:StopMovingOrSizing() end)
+    AZPRenownFrame:SetScript("OnDragStop", function() AZPRenownFrame:StopMovingOrSizing() AZPRenownSavePositionFrame() end)
 
     AZPRenownFrame:RegisterEvent("VARIABLES_LOADED")
     AZPRenownFrame:RegisterEvent("COVENANT_CHOSEN")
@@ -39,7 +39,7 @@ function AZPRenownOnLoad()
     AZPRenownFrame.CloseButton = CreateFrame("Button", nil, AZPRenownFrame, "UIPanelCloseButton")
     AZPRenownFrame.CloseButton:SetSize(20, 21)
     AZPRenownFrame.CloseButton:SetPoint("TOPRIGHT", AZPRenownFrame, "TOPRIGHT", 2, 2)
-    AZPRenownFrame.CloseButton:SetScript("OnClick", function() AZPRenownFrame:Hide() end)
+    AZPRenownFrame.CloseButton:SetScript("OnClick", function() AZPRenownFrame:Hide() AZPRenownVars.Show = false end)
 
     local curWidth, curHeight = 180, 48     -- 482, 126     -- 241, 63
 
@@ -116,6 +116,8 @@ function AZPRenownOnLoad()
     AZPRenownFrame.KyrianFrame.Level:SetSize(AZPRenownFrame.KyrianFrame:GetWidth() * 0.25, AZPRenownFrame.KyrianFrame:GetHeight())
     AZPRenownFrame.KyrianFrame.Level:SetPoint("RIGHT", AZPRenownFrame.KyrianFrame, "RIGHT", -15, -2)
     AZPRenownFrame.KyrianFrame.Level:SetText("0")
+
+    AZPRenownFrame:Hide()
 end
 
 function AZPRenownOnEvent(_, event, ...)
@@ -126,11 +128,11 @@ function AZPRenownOnEvent(_, event, ...)
             local curCovID = C_Covenants.GetActiveCovenantID()
             local curCovName = CovenantNames[curCovID]
             local curCovLevel = C_CovenantSanctumUI.GetRenownLevel()
-            print(curCovID, "-", curCovName, "-", curCovLevel)
             AZPRenownLevels[curGUID][curCovName] = curCovLevel
             AZPRenownSetLevels(curGUID)
         end)
     elseif event == "VARIABLES_LOADED" then
+        AZPRenownLoadPositionFrame()
         C_Timer.After(1,
         function()
             local curCovID = C_Covenants.GetActiveCovenantID()
@@ -139,7 +141,6 @@ function AZPRenownOnEvent(_, event, ...)
             local curCovLevel = C_CovenantSanctumUI.GetRenownLevel()
             if AZPRenownLevels == nil then AZPRenownLevels = {} end
             if AZPRenownLevels[curGUID] == nil then AZPRenownLevels[curGUID] = {NightFae = 0, Venthyr = 0, Necrolord = 0, Kyrian = 0,} end
-            print(curGUID, curCovName, curCovLevel)
             AZPRenownLevels[curGUID][curCovName] = curCovLevel
             AZPRenownSetLevels(curGUID)
         end)
@@ -153,10 +154,31 @@ function AZPRenownSetLevels(curGUID)
     AZPRenownFrame.KyrianFrame.Level:SetText(AZPRenownLevels[curGUID].Kyrian)
 end
 
+function AZPRenownLoadPositionFrame()
+    if AZPRenownVars == nil then AZPRenownVars = {} AZPRenownVars.Position = {"CENTER", nil, nil, 0, 0} end
+    local curPos = AZPRenownVars.Position
+    AZPRenownFrame:SetPoint(curPos[1], curPos[2], curPos[3], curPos[4], curPos[5])
+    if AZPRenownVars.Show == true or AZPRenownVars.Show == nil then AZPRenownFrame:Show() end
+end
+
+function AZPRenownSavePositionFrame()
+    local v1, v2, v3, v4, v5 = AZPRenownFrame:GetPoint()
+    AZPRenownVars.Position = {v1, v2, v3, v4, v5}
+end
+
+function AZPRenownShowHideFrame()
+    AZPRenownVars.Show = false
+end
+
+function AZPRenownVarsLoaded()
+
+end
+
 AZPRenownOnLoad()
 
 AZP.SlashCommands["RC"] = function()
     AZPRenownFrame:Show()
+    AZPRenownVars.Show = true
 end
 
 AZP.SlashCommands["rc"] = AZP.SlashCommands["RC"]

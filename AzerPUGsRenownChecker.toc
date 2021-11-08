@@ -4,7 +4,7 @@
 ## OptionalDeps: AzerPUGsCore
 ## Notes: Check all 4 Renown levels in a single frame!
 ## Version: SL 9.1.5 (For actual addon version, check InstanceLeadership.lua)
-## SavedVariables: AZPRenownLevels
+## SavedVariables: AZPRenownLevels  AZPRenownVars
 
 SlashCommands.lua
 Renown.lua
