@@ -1,5 +1,7 @@
 local AZPRenownFrame = nil
 
+local AZPRenownVersion = 4
+
 local CovenantNames =
 {
     [1] =    "Kyrian",
@@ -11,7 +13,6 @@ local CovenantNames =
 function AZPRenownOnLoad()
     AZPRenownFrame = CreateFrame("FRAME", nil, UIParent, "BackdropTemplate")
     AZPRenownFrame:SetSize(200, 250)
-    
     AZPRenownFrame:SetBackdrop({
         bgFile = "Interface/Tooltips/UI-Tooltip-Background",
         edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
@@ -34,12 +35,12 @@ function AZPRenownOnLoad()
     AZPRenownFrame.Header = AZPRenownFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
     AZPRenownFrame.Header:SetSize(AZPRenownFrame:GetWidth(), 50)
     AZPRenownFrame.Header:SetPoint("TOP", 0, -5)
-    AZPRenownFrame.Header:SetText("AzerPUG's\nRenown Checker")
+    AZPRenownFrame.Header:SetText(string.format("AzerPUG's\nRenown Checker v%s", AZPRenownVersion))
 
     AZPRenownFrame.CloseButton = CreateFrame("Button", nil, AZPRenownFrame, "UIPanelCloseButton")
     AZPRenownFrame.CloseButton:SetSize(20, 21)
     AZPRenownFrame.CloseButton:SetPoint("TOPRIGHT", AZPRenownFrame, "TOPRIGHT", 2, 2)
-    AZPRenownFrame.CloseButton:SetScript("OnClick", function() AZPRenownFrame:Hide() AZPRenownVars.Show = false end)
+    AZPRenownFrame.CloseButton:SetScript("OnClick", function() AZPRenownShowHideToggle() end)
 
     local curWidth, curHeight = 180, 48     -- 482, 126     -- 241, 63
 
@@ -136,13 +137,15 @@ function AZPRenownOnEvent(_, event, ...)
         C_Timer.After(1,
         function()
             local curCovID = C_Covenants.GetActiveCovenantID()
-            local curCovName = CovenantNames[curCovID]
-            local curGUID = UnitGUID("PLAYER")
-            local curCovLevel = C_CovenantSanctumUI.GetRenownLevel()
-            if AZPRenownLevels == nil then AZPRenownLevels = {} end
-            if AZPRenownLevels[curGUID] == nil then AZPRenownLevels[curGUID] = {NightFae = 0, Venthyr = 0, Necrolord = 0, Kyrian = 0,} end
-            AZPRenownLevels[curGUID][curCovName] = curCovLevel
-            AZPRenownSetLevels(curGUID)
+            if curCovID ~= nil and curCovID ~= 0 then
+                local curCovName = CovenantNames[curCovID]
+                local curGUID = UnitGUID("PLAYER")
+                local curCovLevel = C_CovenantSanctumUI.GetRenownLevel()
+                if AZPRenownLevels == nil then AZPRenownLevels = {} end
+                if AZPRenownLevels[curGUID] == nil then AZPRenownLevels[curGUID] = {NightFae = 0, Venthyr = 0, Necrolord = 0, Kyrian = 0,} end
+                AZPRenownLevels[curGUID][curCovName] = curCovLevel
+                AZPRenownSetLevels(curGUID)
+            end
         end)
     end
 end
@@ -170,6 +173,11 @@ function AZPRenownShowHideFrame()
     AZPRenownVars.Show = false
 end
 
+function AZPRenownShowHideToggle()
+    if AZPRenownFrame:IsShown() == true then AZPRenownFrame:Hide() AZPRenownVars.Show = false
+    elseif AZPRenownFrame:IsShown() == false then AZPRenownFrame:Show() AZPRenownVars.Show = true end
+end
+
 function AZPRenownVarsLoaded()
 
 end
@@ -177,8 +185,7 @@ end
 AZPRenownOnLoad()
 
 AZP.SlashCommands["RC"] = function()
-    AZPRenownFrame:Show()
-    AZPRenownVars.Show = true
+    AZPRenownShowHideToggle()
 end
 
 AZP.SlashCommands["rc"] = AZP.SlashCommands["RC"]
