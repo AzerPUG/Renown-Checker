@@ -1,8 +1,8 @@
 AZPRenownCompactFrame = nil
 AZPRenownFullFrame = nil
-local EventFrame = nil
+local EventFrame, OptionsFrame = nil, nil
 
-local AZPRenownVersion = 6
+local AZPRenownVersion = 7
 
 local CovenantNames =
 {
@@ -22,6 +22,37 @@ function AZPRenownOnLoad()
     EventFrame:RegisterEvent("COVENANT_CHOSEN")
     EventFrame:RegisterEvent("COVENANT_SANCTUM_RENOWN_LEVEL_CHANGED")
     EventFrame:SetScript("OnEvent", function(...) AZPRenownOnEvent(...) end)
+
+    OptionsFrame = CreateFrame("FRAME", nil, UIParent, "BackdropTemplate")
+    OptionsFrame:SetSize(300, 100)
+    OptionsFrame:SetPoint("CENTER", 0, 0)
+    OptionsFrame:EnableMouse(true)
+    OptionsFrame:SetMovable(true)
+    OptionsFrame:RegisterForDrag("LeftButton")
+    OptionsFrame:SetScript("OnDragStart", OptionsFrame.StartMoving)
+    OptionsFrame:SetScript("OnDragStop", function() OptionsFrame:StopMovingOrSizing() AZPRenownSavePositionFrame() end)
+    OptionsFrame:SetBackdrop({
+        bgFile = "Interface/Tooltips/UI-Tooltip-Background",
+        edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
+        edgeSize = 12,
+        insets = { left = 1, right = 1, top = 1, bottom = 1 },
+    })
+    OptionsFrame:SetBackdropColor(0.5, 0.5, 0.5, 0.75)
+
+    OptionsFrame.Header = OptionsFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
+    OptionsFrame.Header:SetSize(OptionsFrame:GetWidth(), 25)
+    OptionsFrame.Header:SetPoint("TOP", 0, -5)
+    OptionsFrame.Header:SetText(string.format("AzerPUG's Renown Checker v%s", AZPRenownVersion))
+
+    OptionsFrame.SubHeader = OptionsFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+    OptionsFrame.SubHeader:SetSize(OptionsFrame:GetWidth(), 16)
+    OptionsFrame.SubHeader:SetPoint("TOP", OptionsFrame.Header, "BOTTOM", 0, 0)
+    OptionsFrame.SubHeader:SetText("Options Panel")
+
+    OptionsFrame.CloseButton = CreateFrame("Button", nil, OptionsFrame, "UIPanelCloseButton")
+    OptionsFrame.CloseButton:SetSize(20, 21)
+    OptionsFrame.CloseButton:SetPoint("TOPRIGHT", OptionsFrame, "TOPRIGHT", 2, 2)
+    OptionsFrame.CloseButton:SetScript("OnClick", function() OptionsFrame:Hide() end)
 
     AZPRenownCreateCompactFrame()
     AZPRenownCreateFullFrame()
@@ -286,7 +317,7 @@ function AZPRenownCreateFullFrame()
     AZPRenownFullFrame.VenthyrFrame.Name = AZPRenownFullFrame. VenthyrFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
     AZPRenownFullFrame.VenthyrFrame.Name:SetSize(AZPRenownFullFrame.VenthyrFrame:GetWidth() * 0.75, AZPRenownFullFrame.VenthyrFrame:GetHeight())
     AZPRenownFullFrame.VenthyrFrame.Name:SetPoint("LEFT", AZPRenownFullFrame.VenthyrFrame, "LEFT", 0, -2)
-    AZPRenownFullFrame.VenthyrFrame.Name:SetText("Night Fae")
+    AZPRenownFullFrame.VenthyrFrame.Name:SetText("Venthyr")
     AZPRenownFullFrame.VenthyrFrame.Name:SetJustifyV("CENTER")
 
     AZPRenownFullFrame.VenthyrFrame.Level = AZPRenownFullFrame.VenthyrFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
@@ -320,7 +351,7 @@ function AZPRenownCreateFullFrame()
     AZPRenownFullFrame.NecrolordFrame.Name = AZPRenownFullFrame. NecrolordFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
     AZPRenownFullFrame.NecrolordFrame.Name:SetSize(AZPRenownFullFrame.NecrolordFrame:GetWidth() * 0.75, AZPRenownFullFrame.NecrolordFrame:GetHeight())
     AZPRenownFullFrame.NecrolordFrame.Name:SetPoint("LEFT", AZPRenownFullFrame.NecrolordFrame, "LEFT", 0, -2)
-    AZPRenownFullFrame.NecrolordFrame.Name:SetText("Night Fae")
+    AZPRenownFullFrame.NecrolordFrame.Name:SetText("Necrolord")
     AZPRenownFullFrame.NecrolordFrame.Name:SetJustifyV("CENTER")
 
     AZPRenownFullFrame.NecrolordFrame.Level = AZPRenownFullFrame.NecrolordFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
@@ -354,7 +385,7 @@ function AZPRenownCreateFullFrame()
     AZPRenownFullFrame.KyrianFrame.Name = AZPRenownFullFrame. KyrianFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
     AZPRenownFullFrame.KyrianFrame.Name:SetSize(AZPRenownFullFrame.KyrianFrame:GetWidth() * 0.75, AZPRenownFullFrame.KyrianFrame:GetHeight())
     AZPRenownFullFrame.KyrianFrame.Name:SetPoint("LEFT", AZPRenownFullFrame.KyrianFrame, "LEFT", 0, -2)
-    AZPRenownFullFrame.KyrianFrame.Name:SetText("Night Fae")
+    AZPRenownFullFrame.KyrianFrame.Name:SetText("Kyrian")
     AZPRenownFullFrame.KyrianFrame.Name:SetJustifyV("CENTER")
 
     AZPRenownFullFrame.KyrianFrame.Level = AZPRenownFullFrame.KyrianFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
