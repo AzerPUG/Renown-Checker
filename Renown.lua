@@ -2,7 +2,7 @@ AZPRenownCompactFrame = nil
 AZPRenownFullFrame = nil
 local EventFrame, OptionsFrame = nil, nil
 
-local AZPRenownVersion = 7
+local AZPRenownVersion = 8
 
 local CovenantNames =
 {
@@ -15,6 +15,7 @@ local CovenantNames =
 local curFont = {}
 local valuesRecentlyUpdated = false
 local AZPRenownSizes = {Full = {Width = 200, Height = 250}, Compact = {Width = 200, Height = 125}}
+local ColorPickerFrameInUse = nil
 
 function AZPRenownOnLoad()
     EventFrame = CreateFrame("FRAME", nil)
@@ -24,7 +25,7 @@ function AZPRenownOnLoad()
     EventFrame:SetScript("OnEvent", function(...) AZPRenownOnEvent(...) end)
 
     OptionsFrame = CreateFrame("FRAME", nil, UIParent, "BackdropTemplate")
-    OptionsFrame:SetSize(300, 100)
+    OptionsFrame:SetSize(300, 125)
     OptionsFrame:SetPoint("CENTER", 0, 0)
     OptionsFrame:EnableMouse(true)
     OptionsFrame:SetMovable(true)
@@ -54,6 +55,52 @@ function AZPRenownOnLoad()
     OptionsFrame.CloseButton:SetPoint("TOPRIGHT", OptionsFrame, "TOPRIGHT", 2, 2)
     OptionsFrame.CloseButton:SetScript("OnClick", function() OptionsFrame:Hide() end)
 
+    OptionsFrame.BorderColorButton = CreateFrame("Button", nil, OptionsFrame, "UIPanelButtonTemplate")
+    OptionsFrame.BorderColorButton:SetSize(75, 20)
+    OptionsFrame.BorderColorButton:SetPoint("BOTTOM", 0, 10)
+    OptionsFrame.BorderColorButton:SetText("Border Color")
+    OptionsFrame.BorderColorButton:SetScript("OnClick", function() ColorPickerMain({AZPRenownCompactFrame, AZPRenownFullFrame}, "Border") end)
+
+    OptionsFrame.BGColorButton = CreateFrame("Button", nil, OptionsFrame, "UIPanelButtonTemplate")
+    OptionsFrame.BGColorButton:SetSize(75, 20)
+    OptionsFrame.BGColorButton:SetPoint("RIGHT", OptionsFrame.BorderColorButton, "LEFT", -5, 0)
+    OptionsFrame.BGColorButton:SetText("BG Color")
+    OptionsFrame.BGColorButton:SetScript("OnClick", function() ColorPickerMain({AZPRenownCompactFrame, AZPRenownFullFrame}, "BG") end)
+
+    OptionsFrame.ChangeSizeButton = CreateFrame("Button", nil, OptionsFrame, "UIPanelButtonTemplate")
+    OptionsFrame.ChangeSizeButton:SetSize(75, 20)
+    OptionsFrame.ChangeSizeButton:SetPoint("BOTTOM", OptionsFrame.BGColorButton, "TOP", 0, 10)
+    OptionsFrame.ChangeSizeButton:SetScript("OnClick", function() AZPRenownFrameSizeToggle() end)
+
+    OptionsFrame.TextColorButton = CreateFrame("Button", nil, OptionsFrame, "UIPanelButtonTemplate")
+    OptionsFrame.TextColorButton:SetSize(75, 20)
+    OptionsFrame.TextColorButton:SetPoint("LEFT", OptionsFrame.BorderColorButton, "RIGHT", 5, 0)
+    OptionsFrame.TextColorButton:SetText("Text Color")
+    OptionsFrame.TextColorButton:SetScript("OnClick",
+    function()
+        ColorPickerMain(
+        {
+            AZPRenownCompactFrame.Header,
+            AZPRenownCompactFrame.NightFaeFrame.Level,
+            AZPRenownCompactFrame.VenthyrFrame.Level,
+            AZPRenownCompactFrame.NecrolordFrame.Level,
+            AZPRenownCompactFrame.KyrianFrame.Level,
+            AZPRenownFullFrame.Header,
+            AZPRenownFullFrame.NightFaeFrame.Level,
+            AZPRenownFullFrame.NightFaeFrame.Name,
+            AZPRenownFullFrame.VenthyrFrame.Level,
+            AZPRenownFullFrame.VenthyrFrame.Name,
+            AZPRenownFullFrame.NecrolordFrame.Level,
+            AZPRenownFullFrame.NecrolordFrame.Name,
+            AZPRenownFullFrame.KyrianFrame.Level,
+            AZPRenownFullFrame.KyrianFrame.Name,
+        }, "Text")
+    end)
+
+    OptionsFrame:Hide()
+
+    ColorPickerOkayButton:HookScript("OnClick", function() AZPRenownColorSave() end)
+
     AZPRenownCreateCompactFrame()
     AZPRenownCreateFullFrame()
 end
@@ -80,14 +127,14 @@ function AZPRenownCreateCompactFrame()
     AZPRenownCompactFrame.Header:SetPoint("TOP", 0, -5)
     AZPRenownCompactFrame.Header:SetText(string.format("AzerPUG's\nRenown Checker v%s", AZPRenownVersion))
 
-    AZPRenownCompactFrame.SizeToggleButton = CreateFrame("Frame", nil, AZPRenownCompactFrame)
-    AZPRenownCompactFrame.SizeToggleButton:SetSize(15, 15)
-    AZPRenownCompactFrame.SizeToggleButton:SetPoint("TOPLEFT", AZPRenownCompactFrame, "TOPLEFT", 3, -3)
-    AZPRenownCompactFrame.SizeToggleButton:SetScript("OnMouseDown", function() AZPRenownFrameSizeToggle() end)
-    AZPRenownCompactFrame.SizeToggleButton.Texture = AZPRenownCompactFrame.SizeToggleButton:CreateTexture(nil, "ARTWORK")
-    AZPRenownCompactFrame.SizeToggleButton.Texture:SetSize(AZPRenownCompactFrame.SizeToggleButton:GetWidth(), AZPRenownCompactFrame.SizeToggleButton:GetHeight())
-    AZPRenownCompactFrame.SizeToggleButton.Texture:SetPoint("CENTER", 0, 0)
-    AZPRenownCompactFrame.SizeToggleButton.Texture:SetTexture("Interface/BUTTONS/UI-OptionsButton")
+    AZPRenownCompactFrame.OpenOptionPanelButton = CreateFrame("Frame", nil, AZPRenownCompactFrame)
+    AZPRenownCompactFrame.OpenOptionPanelButton:SetSize(15, 15)
+    AZPRenownCompactFrame.OpenOptionPanelButton:SetPoint("TOPLEFT", AZPRenownCompactFrame, "TOPLEFT", 3, -3)
+    AZPRenownCompactFrame.OpenOptionPanelButton:SetScript("OnMouseDown", function() OptionsFrame:Show() end)
+    AZPRenownCompactFrame.OpenOptionPanelButton.Texture = AZPRenownCompactFrame.OpenOptionPanelButton:CreateTexture(nil, "ARTWORK")
+    AZPRenownCompactFrame.OpenOptionPanelButton.Texture:SetSize(AZPRenownCompactFrame.OpenOptionPanelButton:GetWidth(), AZPRenownCompactFrame.OpenOptionPanelButton:GetHeight())
+    AZPRenownCompactFrame.OpenOptionPanelButton.Texture:SetPoint("CENTER", 0, 0)
+    AZPRenownCompactFrame.OpenOptionPanelButton.Texture:SetTexture("Interface/BUTTONS/UI-OptionsButton")
 
     AZPRenownCompactFrame.CloseButton = CreateFrame("Button", nil, AZPRenownCompactFrame, "UIPanelCloseButton")
     AZPRenownCompactFrame.CloseButton:SetSize(20, 21)
@@ -256,14 +303,14 @@ function AZPRenownCreateFullFrame()
     AZPRenownFullFrame.Header:SetPoint("TOP", 0, -5)
     AZPRenownFullFrame.Header:SetText(string.format("AzerPUG's\nRenown Checker v%s", AZPRenownVersion))
 
-    AZPRenownFullFrame.SizeToggleButton = CreateFrame("Frame", nil, AZPRenownFullFrame)
-    AZPRenownFullFrame.SizeToggleButton:SetSize(15, 15)
-    AZPRenownFullFrame.SizeToggleButton:SetPoint("TOPLEFT", AZPRenownFullFrame, "TOPLEFT", 3, -3)
-    AZPRenownFullFrame.SizeToggleButton:SetScript("OnMouseDown", function() AZPRenownFrameSizeToggle() end)
-    AZPRenownFullFrame.SizeToggleButton.Texture = AZPRenownFullFrame.SizeToggleButton:CreateTexture(nil, "ARTWORK")
-    AZPRenownFullFrame.SizeToggleButton.Texture:SetSize(AZPRenownFullFrame.SizeToggleButton:GetWidth(), AZPRenownFullFrame.SizeToggleButton:GetHeight())
-    AZPRenownFullFrame.SizeToggleButton.Texture:SetPoint("CENTER", 0, 0)
-    AZPRenownFullFrame.SizeToggleButton.Texture:SetTexture("Interface/BUTTONS/UI-OptionsButton")
+    AZPRenownFullFrame.OpenOptionPanelButton = CreateFrame("Frame", nil, AZPRenownFullFrame)
+    AZPRenownFullFrame.OpenOptionPanelButton:SetSize(15, 15)
+    AZPRenownFullFrame.OpenOptionPanelButton:SetPoint("TOPLEFT", AZPRenownFullFrame, "TOPLEFT", 3, -3)
+    AZPRenownFullFrame.OpenOptionPanelButton:SetScript("OnMouseDown", function() OptionsFrame:Show() end)
+    AZPRenownFullFrame.OpenOptionPanelButton.Texture = AZPRenownFullFrame.OpenOptionPanelButton:CreateTexture(nil, "ARTWORK")
+    AZPRenownFullFrame.OpenOptionPanelButton.Texture:SetSize(AZPRenownFullFrame.OpenOptionPanelButton:GetWidth(), AZPRenownFullFrame.OpenOptionPanelButton:GetHeight())
+    AZPRenownFullFrame.OpenOptionPanelButton.Texture:SetPoint("CENTER", 0, 0)
+    AZPRenownFullFrame.OpenOptionPanelButton.Texture:SetTexture("Interface/BUTTONS/UI-OptionsButton")
 
     AZPRenownFullFrame.CloseButton = CreateFrame("Button", nil, AZPRenownFullFrame, "UIPanelCloseButton")
     AZPRenownFullFrame.CloseButton:SetSize(20, 21)
@@ -421,11 +468,13 @@ function AZPRenownFrameSizeToggle()
         AZPRenownCompactFrame:Show()
         AZPRenownFrameMarkActiveCompact()
         AZPRenownFullFrame:Hide()
+        OptionsFrame.ChangeSizeButton:SetText("Size: Compact")
     elseif AZPRenownVars.Size == "Compact" then
         AZPRenownVars.Size = "Full"
         AZPRenownFullFrame:Show()
         AZPRenownFrameMarkActiveFull()
         AZPRenownCompactFrame:Hide()
+        OptionsFrame.ChangeSizeButton:SetText("Size: Full")
     end
     AZPRenownLoadPositionFrame()
 end
@@ -509,8 +558,37 @@ function AZPRenownOnEvent(_, event, ...)
         AZPRenownFrameUpdateValues()
     elseif event == "VARIABLES_LOADED" then
         AZPRenownLoadPositionFrame()
-        if AZPRenownVars.Size == nil then AZPRenownVars.Size = "Full" end
+        OptionsFrame.ChangeSizeButton:SetText(string.format("Size: %s", AZPRenownVars.Size))
+        AZPRenownColorLoad()
         AZPRenownFrameUpdateValues()
+    end
+end
+
+function AZPRenownColorLoad()
+    if AZPRenownVars.BG ~= nil then
+        SetColorForFrames({AZPRenownCompactFrame, AZPRenownFullFrame}, AZPRenownVars.BG, "BG")
+    end
+    if AZPRenownVars.Border ~= nil then
+        SetColorForFrames({AZPRenownCompactFrame, AZPRenownFullFrame}, AZPRenownVars.Border, "Border")
+    end
+    if AZPRenownVars.Text ~= nil then
+        SetColorForFrames(
+        {
+            AZPRenownCompactFrame.Header,
+            AZPRenownCompactFrame.NightFaeFrame.Level,
+            AZPRenownCompactFrame.VenthyrFrame.Level,
+            AZPRenownCompactFrame.NecrolordFrame.Level,
+            AZPRenownCompactFrame.KyrianFrame.Level,
+            AZPRenownFullFrame.Header,
+            AZPRenownFullFrame.NightFaeFrame.Level,
+            AZPRenownFullFrame.NightFaeFrame.Name,
+            AZPRenownFullFrame.VenthyrFrame.Level,
+            AZPRenownFullFrame.VenthyrFrame.Name,
+            AZPRenownFullFrame.NecrolordFrame.Level,
+            AZPRenownFullFrame.NecrolordFrame.Name,
+            AZPRenownFullFrame.KyrianFrame.Level,
+            AZPRenownFullFrame.KyrianFrame.Name,
+        }, AZPRenownVars.Text, "Text")
     end
 end
 
@@ -528,6 +606,7 @@ end
 
 function AZPRenownLoadPositionFrame()
     if AZPRenownVars == nil then AZPRenownVars = {} AZPRenownVars.Position = {"CENTER", nil, nil, 0, 0} end
+    if AZPRenownVars.Size == nil then AZPRenownVars.Size = "Full" end
     local curPos = AZPRenownVars.Position
 
     AZPRenownCompactFrame:ClearAllPoints()
@@ -556,6 +635,53 @@ function AZPRenownShowHideToggle()
     elseif AZPRenownVars.Size == "Full" then
         if AZPRenownVars.Show == true then AZPRenownVars.Show = false AZPRenownFullFrame:Hide()
         elseif AZPRenownVars.Show == false then AZPRenownVars.Show = true AZPRenownFullFrame:Show() end
+    end
+end
+
+function ColorPickerMain(Frames, Component)
+    ColorPickerFrameInUse = Component
+    local r, g, b, a = nil, nil, nil, nil
+        if Component == "BG" then r, g, b, a = Frames[1]:GetBackdropColor()
+    elseif Component == "Border" then r, g, b, a = Frames[1]:GetBackdropBorderColor()
+    elseif Component == "Text" then r, g, b, a = Frames[1]:GetTextColor() end
+    ColorPickerFrame.hasOpacity, ColorPickerFrame.opacity = (a ~= nil), a
+    ColorPickerFrame.previousValues = {r,g,b,a}
+    ColorPickerFrame:SetColorRGB(r,g,b)
+
+    ColorPickerFrame.func = function() ColorPickerAcceptFunction(Frames, Component) end
+    ColorPickerFrame.opacityFunc = ColorPickerFrame.func
+    ColorPickerFrame.cancelFunc = function(prev) ColorPickerCancelFunction(Frames, Component, prev) end
+
+    ColorPickerFrame:Hide()
+    ColorPickerFrame:Show()
+end
+
+function AZPRenownColorSave()
+    if ColorPickerFrameInUse ~= nil then
+        local r, g, b = ColorPickerFrame:GetColorRGB()
+        local a = OpacitySliderFrame:GetValue()
+        AZPRenownVars[ColorPickerFrameInUse] = {r, g, b, a}
+        ColorPickerFrameInUse = nil
+    end
+end
+
+function ColorPickerAcceptFunction(Frames, Component)
+    local r, g, b = ColorPickerFrame:GetColorRGB()
+    local a = OpacitySliderFrame:GetValue()
+    SetColorForFrames(Frames, {r, g, b, a}, Component)
+end
+
+function ColorPickerCancelFunction(Frames, Component, prev)
+    ColorPickerFrameInUse = nil
+    SetColorForFrames(Frames, prev, Component)
+end
+
+function SetColorForFrames(Frames, Color, Component)
+    local r, g, b, a = unpack(Color)
+    for _, curFrame in pairs(Frames) do
+        if Component == "BG" then curFrame:SetBackdropColor(r, g, b, a)
+    elseif Component == "Border" then curFrame:SetBackdropBorderColor(r, g, b, a)
+    elseif Component == "Text" then curFrame:SetTextColor(r, g, b, a) end
     end
 end
 
