@@ -615,7 +615,10 @@ function AZPRenownLoadPositionFrame()
     AZPRenownCompactFrame:SetPoint(curPos[1], curPos[4], curPos[5])
     AZPRenownFullFrame:SetPoint(curPos[1], curPos[4], curPos[5])
 
-    if AZPRenownVars.Show == true or AZPRenownVars.Show == nil then
+    if AZPRenownVars.Show == nil then
+        AZPRenownVars.Show = true
+    end
+    if AZPRenownVars.Show == true then
             if AZPRenownVars.Size == "Compact" then AZPRenownCompactFrame:Show()
         elseif AZPRenownVars.Size == "Full" then AZPRenownFullFrame:Show() end
     end
