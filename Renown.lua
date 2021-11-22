@@ -2,7 +2,7 @@ AZPRenownCompactFrame = nil
 AZPRenownFullFrame = nil
 local EventFrame, OptionsFrame = nil, nil
 
-local AZPRenownVersion = 8
+local AZPRenownVersion = 9
 
 local CovenantNames =
 {
@@ -615,9 +615,8 @@ function AZPRenownLoadPositionFrame()
     AZPRenownCompactFrame:SetPoint(curPos[1], curPos[4], curPos[5])
     AZPRenownFullFrame:SetPoint(curPos[1], curPos[4], curPos[5])
 
-    if AZPRenownVars.Show == nil then
-        AZPRenownVars.Show = true
-    end
+    if AZPRenownVars.Show == nil then AZPRenownVars.Show = true end
+
     if AZPRenownVars.Show == true then
             if AZPRenownVars.Size == "Compact" then AZPRenownCompactFrame:Show()
         elseif AZPRenownVars.Size == "Full" then AZPRenownFullFrame:Show() end
