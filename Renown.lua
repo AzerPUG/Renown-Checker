@@ -1,7 +1,7 @@
 local AZPRenownCompactFrame, AZPRenownFullFrame, AZPRenownAltFrame = nil, nil, nil
 local EventFrame, OptionsFrame = nil, nil
 
-local AZPRenownVersion = 10
+local AZPRenownVersion = 11
 
 local CovenantNames =
 {
@@ -10,6 +10,9 @@ local CovenantNames =
     [3] =  "NightFae",
     [4] = "Necrolord",
 }
+
+local allTextParts = {}
+local allFrames = {}
 
 local curFont = {}
 local valuesRecentlyUpdated = false
@@ -58,13 +61,13 @@ function AZPRenownOnLoad()
     OptionsFrame.BorderColorButton:SetSize(75, 20)
     OptionsFrame.BorderColorButton:SetPoint("BOTTOM", 0, 10)
     OptionsFrame.BorderColorButton:SetText("Border Color")
-    OptionsFrame.BorderColorButton:SetScript("OnClick", function() ColorPickerMain({AZPRenownCompactFrame, AZPRenownFullFrame}, "Border") end)
+    OptionsFrame.BorderColorButton:SetScript("OnClick", function() ColorPickerMain(allFrames, "Border") end)
 
     OptionsFrame.BGColorButton = CreateFrame("Button", nil, OptionsFrame, "UIPanelButtonTemplate")
     OptionsFrame.BGColorButton:SetSize(75, 20)
     OptionsFrame.BGColorButton:SetPoint("RIGHT", OptionsFrame.BorderColorButton, "LEFT", -5, 0)
     OptionsFrame.BGColorButton:SetText("BG Color")
-    OptionsFrame.BGColorButton:SetScript("OnClick", function() ColorPickerMain({AZPRenownCompactFrame, AZPRenownFullFrame}, "BG") end)
+    OptionsFrame.BGColorButton:SetScript("OnClick", function() ColorPickerMain(allFrames, "BG") end)
 
     OptionsFrame.ChangeSizeButton = CreateFrame("Button", nil, OptionsFrame, "UIPanelButtonTemplate")
     OptionsFrame.ChangeSizeButton:SetSize(75, 20)
@@ -75,26 +78,7 @@ function AZPRenownOnLoad()
     OptionsFrame.TextColorButton:SetSize(75, 20)
     OptionsFrame.TextColorButton:SetPoint("LEFT", OptionsFrame.BorderColorButton, "RIGHT", 5, 0)
     OptionsFrame.TextColorButton:SetText("Text Color")
-    OptionsFrame.TextColorButton:SetScript("OnClick",
-    function()
-        ColorPickerMain(
-        {
-            AZPRenownCompactFrame.Header,
-            AZPRenownCompactFrame.NightFaeFrame.Level,
-            AZPRenownCompactFrame.VenthyrFrame.Level,
-            AZPRenownCompactFrame.NecrolordFrame.Level,
-            AZPRenownCompactFrame.KyrianFrame.Level,
-            AZPRenownFullFrame.Header,
-            AZPRenownFullFrame.NightFaeFrame.Level,
-            AZPRenownFullFrame.NightFaeFrame.Name,
-            AZPRenownFullFrame.VenthyrFrame.Level,
-            AZPRenownFullFrame.VenthyrFrame.Name,
-            AZPRenownFullFrame.NecrolordFrame.Level,
-            AZPRenownFullFrame.NecrolordFrame.Name,
-            AZPRenownFullFrame.KyrianFrame.Level,
-            AZPRenownFullFrame.KyrianFrame.Name,
-        }, "Text")
-    end)
+    OptionsFrame.TextColorButton:SetScript("OnClick", function() ColorPickerMain(allTextParts, "Text") end)
 
     OptionsFrame.AltFrameButton = CreateFrame("Button", nil, OptionsFrame, "UIPanelButtonTemplate")
     OptionsFrame.AltFrameButton:SetSize(75, 20)
@@ -780,37 +764,57 @@ function AZPRenownOnEvent(_, event, ...)
     elseif event == "VARIABLES_LOADED" then
         AZPRenownLoadPositionFrame()
         OptionsFrame.ChangeSizeButton:SetText(string.format("Size: %s", AZPRenownVars.Size))
-        AZPRenownColorLoad()
         AZPRenownFrameUpdateValues()
         AZPRenownCreateAltFrame()
+        AZPRenownSetFrames()
+        AZPRenownColorLoad()
+    end
+end
+
+function AZPRenownSetFrames()
+    allFrames = {AZPRenownCompactFrame, AZPRenownFullFrame, AZPRenownAltFrame, OptionsFrame}
+    allTextParts =
+    {
+        AZPRenownCompactFrame.Header,
+        AZPRenownCompactFrame.NightFaeFrame.Level,
+        AZPRenownCompactFrame.VenthyrFrame.Level,
+        AZPRenownCompactFrame.NecrolordFrame.Level,
+        AZPRenownCompactFrame.KyrianFrame.Level,
+
+        AZPRenownFullFrame.Header,
+        AZPRenownFullFrame.NightFaeFrame.Level,
+        AZPRenownFullFrame.NightFaeFrame.Name,
+        AZPRenownFullFrame.VenthyrFrame.Level,
+        AZPRenownFullFrame.VenthyrFrame.Name,
+        AZPRenownFullFrame.NecrolordFrame.Level,
+        AZPRenownFullFrame.NecrolordFrame.Name,
+        AZPRenownFullFrame.KyrianFrame.Level,
+        AZPRenownFullFrame.KyrianFrame.Name,
+
+        AZPRenownAltFrame.Header,
+        AZPRenownAltFrame.SubHeader,
+
+        OptionsFrame.Header,
+        OptionsFrame.SubHeader,
+    }
+
+    for _, curFrame in pairs(AZPRenownAltFrame.AllCharFrames) do
+        allTextParts[#allTextParts + 1] = curFrame.NightFaeFrame.Level
+        allTextParts[#allTextParts + 1] = curFrame.VenthyrFrame.Level
+        allTextParts[#allTextParts + 1] = curFrame.NecrolordFrame.Level
+        allTextParts[#allTextParts + 1] = curFrame.KyrianFrame.Level
     end
 end
 
 function AZPRenownColorLoad()
     if AZPRenownVars.BG ~= nil then
-        SetColorForFrames({AZPRenownCompactFrame, AZPRenownFullFrame}, AZPRenownVars.BG, "BG")
+        SetColorForFrames(allFrames, AZPRenownVars.BG, "BG")
     end
     if AZPRenownVars.Border ~= nil then
-        SetColorForFrames({AZPRenownCompactFrame, AZPRenownFullFrame}, AZPRenownVars.Border, "Border")
+        SetColorForFrames(allFrames, AZPRenownVars.Border, "Border")
     end
     if AZPRenownVars.Text ~= nil then
-        SetColorForFrames(
-        {
-            AZPRenownCompactFrame.Header,
-            AZPRenownCompactFrame.NightFaeFrame.Level,
-            AZPRenownCompactFrame.VenthyrFrame.Level,
-            AZPRenownCompactFrame.NecrolordFrame.Level,
-            AZPRenownCompactFrame.KyrianFrame.Level,
-            AZPRenownFullFrame.Header,
-            AZPRenownFullFrame.NightFaeFrame.Level,
-            AZPRenownFullFrame.NightFaeFrame.Name,
-            AZPRenownFullFrame.VenthyrFrame.Level,
-            AZPRenownFullFrame.VenthyrFrame.Name,
-            AZPRenownFullFrame.NecrolordFrame.Level,
-            AZPRenownFullFrame.NecrolordFrame.Name,
-            AZPRenownFullFrame.KyrianFrame.Level,
-            AZPRenownFullFrame.KyrianFrame.Name,
-        }, AZPRenownVars.Text, "Text")
+        SetColorForFrames(allTextParts, AZPRenownVars.Text, "Text")
     end
 end
 
