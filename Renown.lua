@@ -1,8 +1,7 @@
-AZPRenownCompactFrame = nil
-AZPRenownFullFrame = nil
+local AZPRenownCompactFrame, AZPRenownFullFrame, AZPRenownAltFrame = nil, nil, nil
 local EventFrame, OptionsFrame = nil, nil
 
-local AZPRenownVersion = 9
+local AZPRenownVersion = 10
 
 local CovenantNames =
 {
@@ -97,6 +96,12 @@ function AZPRenownOnLoad()
         }, "Text")
     end)
 
+    OptionsFrame.AltFrameButton = CreateFrame("Button", nil, OptionsFrame, "UIPanelButtonTemplate")
+    OptionsFrame.AltFrameButton:SetSize(75, 20)
+    OptionsFrame.AltFrameButton:SetPoint("BOTTOM", OptionsFrame.TextColorButton, "TOP", 0, 10)
+    OptionsFrame.AltFrameButton:SetScript("OnClick", function() AZPRenownAltFrame:Show() end)
+    OptionsFrame.AltFrameButton:SetText("Show AltFrame")
+
     OptionsFrame:Hide()
 
     ColorPickerOkayButton:HookScript("OnClick", function() AZPRenownColorSave() end)
@@ -154,7 +159,7 @@ function AZPRenownCreateCompactFrame()
 
     AZPRenownCompactFrame.NightFaeFrame.Level = AZPRenownCompactFrame.NightFaeFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
     AZPRenownCompactFrame.NightFaeFrame.Level:SetSize(AZPRenownCompactFrame.NightFaeFrame:GetWidth(), AZPRenownCompactFrame.NightFaeFrame:GetHeight())
-    AZPRenownCompactFrame.NightFaeFrame.Level:SetPoint("CENTER", 2, -1)
+    AZPRenownCompactFrame.NightFaeFrame.Level:SetPoint("CENTER", 0, -1)
     AZPRenownCompactFrame.NightFaeFrame.Level:SetText("0")
     AZPRenownCompactFrame.NightFaeFrame.Level:SetJustifyV("CENTER")
     AZPRenownCompactFrame.NightFaeFrame.Level:SetTextColor(1, 1, 1, 1)
@@ -186,7 +191,7 @@ function AZPRenownCreateCompactFrame()
 
     AZPRenownCompactFrame.VenthyrFrame.Level = AZPRenownCompactFrame.VenthyrFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
     AZPRenownCompactFrame.VenthyrFrame.Level:SetSize(AZPRenownCompactFrame.VenthyrFrame:GetWidth(), AZPRenownCompactFrame.VenthyrFrame:GetHeight())
-    AZPRenownCompactFrame.VenthyrFrame.Level:SetPoint("CENTER", 2, -1)
+    AZPRenownCompactFrame.VenthyrFrame.Level:SetPoint("CENTER", 0, -1)
     AZPRenownCompactFrame.VenthyrFrame.Level:SetText("0")
     AZPRenownCompactFrame.VenthyrFrame.Level:SetJustifyV("CENTER")
     AZPRenownCompactFrame.VenthyrFrame.Level:SetTextColor(1, 1, 1, 1)
@@ -218,7 +223,7 @@ function AZPRenownCreateCompactFrame()
 
     AZPRenownCompactFrame.NecrolordFrame.Level = AZPRenownCompactFrame.NecrolordFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
     AZPRenownCompactFrame.NecrolordFrame.Level:SetSize(AZPRenownCompactFrame.NecrolordFrame:GetWidth(), AZPRenownCompactFrame.NecrolordFrame:GetHeight())
-    AZPRenownCompactFrame.NecrolordFrame.Level:SetPoint("CENTER", 0, -1)
+    AZPRenownCompactFrame.NecrolordFrame.Level:SetPoint("CENTER", -1, -1)
     AZPRenownCompactFrame.NecrolordFrame.Level:SetText("0")
     AZPRenownCompactFrame.NecrolordFrame.Level:SetJustifyV("CENTER")
     AZPRenownCompactFrame.NecrolordFrame.Level:SetTextColor(1, 1, 1, 1)
@@ -273,10 +278,10 @@ function AZPRenownCreateCompactFrame()
 
     local font, size, other = AZPRenownCompactFrame.NightFaeFrame.Level:GetFont()
     curFont = {font, size, other}
-    AZPRenownCompactFrame. NightFaeFrame.Level:SetFont(curFont[1], curFont[2] - 4, curFont[3])
-    AZPRenownCompactFrame.  VenthyrFrame.Level:SetFont(curFont[1], curFont[2] - 4, curFont[3])
-    AZPRenownCompactFrame.NecrolordFrame.Level:SetFont(curFont[1], curFont[2] - 4, curFont[3])
-    AZPRenownCompactFrame.   KyrianFrame.Level:SetFont(curFont[1], curFont[2] - 4, curFont[3])
+    AZPRenownCompactFrame. NightFaeFrame.Level:SetFont(curFont[1], curFont[2], curFont[3])
+    AZPRenownCompactFrame.  VenthyrFrame.Level:SetFont(curFont[1], curFont[2], curFont[3])
+    AZPRenownCompactFrame.NecrolordFrame.Level:SetFont(curFont[1], curFont[2], curFont[3])
+    AZPRenownCompactFrame.   KyrianFrame.Level:SetFont(curFont[1], curFont[2], curFont[3])
 
     AZPRenownCompactFrame:Hide()
 end
@@ -363,7 +368,7 @@ function AZPRenownCreateFullFrame()
 
     AZPRenownFullFrame.VenthyrFrame.Name = AZPRenownFullFrame. VenthyrFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
     AZPRenownFullFrame.VenthyrFrame.Name:SetSize(AZPRenownFullFrame.VenthyrFrame:GetWidth() * 0.75, AZPRenownFullFrame.VenthyrFrame:GetHeight())
-    AZPRenownFullFrame.VenthyrFrame.Name:SetPoint("LEFT", AZPRenownFullFrame.VenthyrFrame, "LEFT", 0, -2)
+    AZPRenownFullFrame.VenthyrFrame.Name:SetPoint("LEFT", AZPRenownFullFrame.VenthyrFrame, "LEFT", 0, -3)
     AZPRenownFullFrame.VenthyrFrame.Name:SetText("Venthyr")
     AZPRenownFullFrame.VenthyrFrame.Name:SetJustifyV("CENTER")
 
@@ -403,7 +408,7 @@ function AZPRenownCreateFullFrame()
 
     AZPRenownFullFrame.NecrolordFrame.Level = AZPRenownFullFrame.NecrolordFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
     AZPRenownFullFrame.NecrolordFrame.Level:SetSize(AZPRenownFullFrame.NecrolordFrame:GetWidth() * 0.25, AZPRenownFullFrame.NecrolordFrame:GetHeight())
-    AZPRenownFullFrame.NecrolordFrame.Level:SetPoint("CENTER", AZPRenownFullFrame.NecrolordFrame, "CENTER", 52, -2)
+    AZPRenownFullFrame.NecrolordFrame.Level:SetPoint("CENTER", AZPRenownFullFrame.NecrolordFrame, "CENTER", 52, -3)
     AZPRenownFullFrame.NecrolordFrame.Level:SetText("0")
     AZPRenownFullFrame.NecrolordFrame.Level:SetJustifyV("CENTER")
     AZPRenownFullFrame.NecrolordFrame.Level:SetTextColor(1, 1, 1, 1)
@@ -457,9 +462,225 @@ function AZPRenownCreateFullFrame()
     local font, size, other = AZPRenownFullFrame.NightFaeFrame.Level:GetFont()
     curFont = {font, size, other}
 
-    AZPRenownFullFrame.NightFaeFrame.Level:SetFont(curFont[1], curFont[2] - 4, curFont[3])
+    AZPRenownFullFrame. NightFaeFrame.Level:SetFont(curFont[1], curFont[2], curFont[3])
+    AZPRenownFullFrame.  VenthyrFrame.Level:SetFont(curFont[1], curFont[2], curFont[3])
+    AZPRenownFullFrame.NecrolordFrame.Level:SetFont(curFont[1], curFont[2], curFont[3])
+    AZPRenownFullFrame.   KyrianFrame.Level:SetFont(curFont[1], curFont[2], curFont[3])
 
     AZPRenownFullFrame:Hide()
+end
+
+function AZPRenownCreateAltFrame()
+    local curGUID = UnitGUID("PLAYER")
+    local curCharName = UnitName("PLAYER")
+    local _, _, curClass = UnitClass("PLAYER")
+    local curActivCov = C_Covenants.GetActiveCovenantID()
+    if AZPRenownLevels[curGUID] == nil then AZPRenownLevels[curGUID] = {NightFae = 0, Venthyr = 0, Necrolord = 0, Kyrian = 0} end
+    AZPRenownLevels[curGUID].Name = curCharName
+    AZPRenownLevels[curGUID].Class = curClass
+    AZPRenownLevels[curGUID].Active = curActivCov
+
+    AZPRenownAltFrame = CreateFrame("FRAME", nil, UIParent, "BackdropTemplate")
+    AZPRenownAltFrame:SetPoint("CENTER", 0, 0)
+    AZPRenownAltFrame:SetBackdrop({
+        bgFile = "Interface/Tooltips/UI-Tooltip-Background",
+        edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
+        edgeSize = 12,
+        insets = { left = 1, right = 1, top = 1, bottom = 1 },
+    })
+    AZPRenownAltFrame:SetBackdropColor(0.5, 0.5, 0.5, 0.75)
+
+    AZPRenownAltFrame:EnableMouse(true)
+    AZPRenownAltFrame:SetMovable(true)
+    AZPRenownAltFrame:RegisterForDrag("LeftButton")
+    AZPRenownAltFrame:SetScript("OnDragStart", AZPRenownAltFrame.StartMoving)
+    AZPRenownAltFrame:SetScript("OnDragStop", function() AZPRenownAltFrame:StopMovingOrSizing() AZPRenownSavePositionFrame() end)
+
+    AZPRenownAltFrame.Header = AZPRenownAltFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
+    AZPRenownAltFrame.Header:SetSize(AZPRenownAltFrame:GetWidth(), 50)
+    AZPRenownAltFrame.Header:SetPoint("TOP", 0, -5)
+    AZPRenownAltFrame.Header:SetText(string.format("AzerPUG's\nRenown Checker v%s", AZPRenownVersion))
+
+    AZPRenownAltFrame.SubHeader = AZPRenownAltFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+    AZPRenownAltFrame.SubHeader:SetSize(AZPRenownAltFrame:GetWidth(), 25)
+    AZPRenownAltFrame.SubHeader:SetPoint("TOP", AZPRenownAltFrame.Header, "BOTTOM", 0, 5)
+    AZPRenownAltFrame.SubHeader:SetText("Alt Frame")
+
+    AZPRenownAltFrame.OpenOptionPanelButton = CreateFrame("Frame", nil, AZPRenownAltFrame)
+    AZPRenownAltFrame.OpenOptionPanelButton:SetSize(15, 15)
+    AZPRenownAltFrame.OpenOptionPanelButton:SetPoint("TOPLEFT", AZPRenownAltFrame, "TOPLEFT", 3, -3)
+    AZPRenownAltFrame.OpenOptionPanelButton:SetScript("OnMouseDown", function() OptionsFrame:Show() end)
+    AZPRenownAltFrame.OpenOptionPanelButton.Texture = AZPRenownAltFrame.OpenOptionPanelButton:CreateTexture(nil, "ARTWORK")
+    AZPRenownAltFrame.OpenOptionPanelButton.Texture:SetSize(AZPRenownAltFrame.OpenOptionPanelButton:GetWidth(), AZPRenownAltFrame.OpenOptionPanelButton:GetHeight())
+    AZPRenownAltFrame.OpenOptionPanelButton.Texture:SetPoint("CENTER", 0, 0)
+    AZPRenownAltFrame.OpenOptionPanelButton.Texture:SetTexture("Interface/BUTTONS/UI-OptionsButton")
+
+    AZPRenownAltFrame.CloseButton = CreateFrame("Button", nil, AZPRenownAltFrame, "UIPanelCloseButton")
+    AZPRenownAltFrame.CloseButton:SetSize(20, 21)
+    AZPRenownAltFrame.CloseButton:SetPoint("TOPRIGHT", AZPRenownAltFrame, "TOPRIGHT", 2, 2)
+    AZPRenownAltFrame.CloseButton:SetScript("OnClick", function() AZPRenownAltFrame:Hide() end)
+
+    local curWidth, curHeight = 75, 75
+
+    AZPRenownAltFrame.AllCharFrames = {}
+
+    for curGUID, CharInfo in pairs(AZPRenownLevels) do
+        local CurCharFrame = CreateFrame("FRAME", nil, AZPRenownAltFrame)
+        CurCharFrame:SetSize(375, curHeight)
+          if #AZPRenownAltFrame.AllCharFrames == 0 then CurCharFrame:SetPoint("TOPLEFT", 0, -65)
+        else CurCharFrame:SetPoint("TOP", AZPRenownAltFrame.AllCharFrames[#AZPRenownAltFrame.AllCharFrames], "BOTTOM", 0, 10) end
+
+        AZPRenownAltFrame.AllCharFrames[#AZPRenownAltFrame.AllCharFrames + 1] = CurCharFrame
+
+        CurCharFrame.CharName = CurCharFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+        CurCharFrame.CharName:SetSize(150, 25)
+        CurCharFrame.CharName:SetPoint("LEFT", 10, 0)
+        local curName = nil
+        if CharInfo.Name == nil then curName = "UnLogged Char" else curName = CharInfo.Name end
+        CurCharFrame.CharName:SetText(curName)
+        CurCharFrame.CharName:SetJustifyV("CENTER")
+        CurCharFrame.CharName:SetTextColor(1, 1, 1, 1)
+
+        CurCharFrame.NightFaeFrame = CreateFrame("FRAME", nil, CurCharFrame)
+        CurCharFrame.NightFaeFrame:SetSize(curWidth, curHeight)
+        CurCharFrame.NightFaeFrame:SetPoint("LEFT", CurCharFrame.CharName, "RIGHT", -5, 0)
+
+        CurCharFrame.NightFaeFrame.BG = CurCharFrame.NightFaeFrame:CreateTexture(nil, "BACKGROUND")
+        CurCharFrame.NightFaeFrame.BG:SetSize(curWidth, curHeight)
+        CurCharFrame.NightFaeFrame.BG:SetPoint("CENTER", 0, 0)
+        CurCharFrame.NightFaeFrame.BG:SetAtlas("shadowlands-landingbutton-NightFae-up")
+
+        CurCharFrame.NightFaeFrame.Level = CurCharFrame.NightFaeFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
+        CurCharFrame.NightFaeFrame.Level:SetSize(CurCharFrame.NightFaeFrame:GetWidth(), CurCharFrame.NightFaeFrame:GetHeight())
+        CurCharFrame.NightFaeFrame.Level:SetPoint("CENTER", 2, -1)
+        CurCharFrame.NightFaeFrame.Level:SetText(CharInfo.NightFae)
+        CurCharFrame.NightFaeFrame.Level:SetJustifyV("CENTER")
+        CurCharFrame.NightFaeFrame.Level:SetTextColor(1, 1, 1, 1)
+
+        CurCharFrame.NightFaeFrame.Glow = CurCharFrame.NightFaeFrame:CreateTexture(nil, "ARTWORK")
+        CurCharFrame.NightFaeFrame.Glow:SetSize(curWidth + 15, curHeight + 15)
+        CurCharFrame.NightFaeFrame.Glow:SetPoint("CENTER", 0, 0)
+        CurCharFrame.NightFaeFrame.Glow:SetAtlas("shadowlands-landingbutton-NightFae-highlight")
+        CurCharFrame.NightFaeFrame.Glow:SetBlendMode("ADD")
+        CurCharFrame.NightFaeFrame.Glow:SetDesaturated(true)
+        CurCharFrame.NightFaeFrame.Glow:SetVertexColor(0, 1, 1)
+
+        CurCharFrame.NightFaeFrame.Glow2 = CurCharFrame.NightFaeFrame:CreateTexture(nil, "ARTWORK")
+        CurCharFrame.NightFaeFrame.Glow2:SetSize(curWidth + 15, curHeight + 15)
+        CurCharFrame.NightFaeFrame.Glow2:SetPoint("CENTER", 0, 0)
+        CurCharFrame.NightFaeFrame.Glow2:SetAtlas("shadowlands-landingbutton-NightFae-highlight")
+        CurCharFrame.NightFaeFrame.Glow2:SetBlendMode("ADD")
+        CurCharFrame.NightFaeFrame.Glow2:SetDesaturated(true)
+        CurCharFrame.NightFaeFrame.Glow2:SetVertexColor(0, 0.5, 1)
+
+        CurCharFrame.VenthyrFrame = CreateFrame("FRAME", nil, CurCharFrame)
+        CurCharFrame.VenthyrFrame:SetSize(curWidth, curHeight)
+        CurCharFrame.VenthyrFrame:SetPoint("LEFT", CurCharFrame.NightFaeFrame, "RIGHT", -25, 0)
+
+        CurCharFrame.VenthyrFrame.BG = CurCharFrame.VenthyrFrame:CreateTexture(nil, "BACKGROUND")
+        CurCharFrame.VenthyrFrame.BG:SetSize(curWidth, curHeight)
+        CurCharFrame.VenthyrFrame.BG:SetPoint("CENTER", 0, 0)
+        CurCharFrame.VenthyrFrame.BG:SetAtlas("shadowlands-landingbutton-venthyr-up")
+
+        CurCharFrame.VenthyrFrame.Level = CurCharFrame.VenthyrFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
+        CurCharFrame.VenthyrFrame.Level:SetSize(CurCharFrame.VenthyrFrame:GetWidth(), CurCharFrame.VenthyrFrame:GetHeight())
+        CurCharFrame.VenthyrFrame.Level:SetPoint("CENTER", 1, -1)
+        CurCharFrame.VenthyrFrame.Level:SetText(CharInfo.Venthyr)
+        CurCharFrame.VenthyrFrame.Level:SetJustifyV("CENTER")
+        CurCharFrame.VenthyrFrame.Level:SetTextColor(1, 1, 1, 1)
+
+        CurCharFrame.VenthyrFrame.Glow = CurCharFrame.VenthyrFrame:CreateTexture(nil, "ARTWORK")
+        CurCharFrame.VenthyrFrame.Glow:SetSize(curWidth + 5, curHeight + 5)
+        CurCharFrame.VenthyrFrame.Glow:SetPoint("CENTER", 0, 0)
+        CurCharFrame.VenthyrFrame.Glow:SetAtlas("shadowlands-landingbutton-venthyr-highlight")
+        CurCharFrame.VenthyrFrame.Glow:SetBlendMode("add")
+        CurCharFrame.VenthyrFrame.Glow:SetDesaturated(true)
+        CurCharFrame.VenthyrFrame.Glow:SetVertexColor(1, 0, 0)
+
+        CurCharFrame.VenthyrFrame.Glow2 = CurCharFrame.VenthyrFrame:CreateTexture(nil, "ARTWORK")
+        CurCharFrame.VenthyrFrame.Glow2:SetSize(curWidth + 5, curHeight + 5)
+        CurCharFrame.VenthyrFrame.Glow2:SetPoint("CENTER", 0, 0)
+        CurCharFrame.VenthyrFrame.Glow2:SetAtlas("shadowlands-landingbutton-venthyr-highlight")
+        CurCharFrame.VenthyrFrame.Glow2:SetBlendMode("add")
+        CurCharFrame.VenthyrFrame.Glow2:SetDesaturated(true)
+        CurCharFrame.VenthyrFrame.Glow2:SetVertexColor(1, 0, 0)
+
+        CurCharFrame.NecrolordFrame = CreateFrame("FRAME", nil, CurCharFrame)
+        CurCharFrame.NecrolordFrame:SetSize(curWidth, curHeight)
+        CurCharFrame.NecrolordFrame:SetPoint("LEFT", CurCharFrame.VenthyrFrame, "RIGHT", -25, 0)
+
+        CurCharFrame.NecrolordFrame.BG = CurCharFrame.NecrolordFrame:CreateTexture(nil, "BACKGROUND")
+        CurCharFrame.NecrolordFrame.BG:SetSize(curWidth, curHeight)
+        CurCharFrame.NecrolordFrame.BG:SetPoint("CENTER", 0, 0)
+        CurCharFrame.NecrolordFrame.BG:SetAtlas("shadowlands-landingbutton-necrolord-up")
+
+        CurCharFrame.NecrolordFrame.Level = CurCharFrame.NecrolordFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
+        CurCharFrame.NecrolordFrame.Level:SetSize(CurCharFrame.NecrolordFrame:GetWidth(), CurCharFrame.NecrolordFrame:GetHeight())
+        CurCharFrame.NecrolordFrame.Level:SetPoint("CENTER", 0, -1)
+        CurCharFrame.NecrolordFrame.Level:SetText(CharInfo.Necrolord)
+        CurCharFrame.NecrolordFrame.Level:SetJustifyV("CENTER")
+        CurCharFrame.NecrolordFrame.Level:SetTextColor(1, 1, 1, 1)
+
+        CurCharFrame.NecrolordFrame.Glow = CurCharFrame.NecrolordFrame:CreateTexture(nil, "ARTWORK")
+        CurCharFrame.NecrolordFrame.Glow:SetSize(curWidth + 5, curHeight + 5)
+        CurCharFrame.NecrolordFrame.Glow:SetPoint("CENTER", 0, 0)
+        CurCharFrame.NecrolordFrame.Glow:SetAtlas("shadowlands-landingbutton-necrolord-highlight")
+        CurCharFrame.NecrolordFrame.Glow:SetBlendMode("add")
+        CurCharFrame.NecrolordFrame.Glow:SetDesaturated(true)
+        CurCharFrame.NecrolordFrame.Glow:SetVertexColor(0, 0.5, 0)
+
+        CurCharFrame.NecrolordFrame.Glow2 = CurCharFrame.NecrolordFrame:CreateTexture(nil, "ARTWORK")
+        CurCharFrame.NecrolordFrame.Glow2:SetSize(curWidth + 5, curHeight + 5)
+        CurCharFrame.NecrolordFrame.Glow2:SetPoint("CENTER", 0, 0)
+        CurCharFrame.NecrolordFrame.Glow2:SetAtlas("shadowlands-landingbutton-necrolord-highlight")
+        CurCharFrame.NecrolordFrame.Glow2:SetBlendMode("add")
+        CurCharFrame.NecrolordFrame.Glow2:SetDesaturated(true)
+        CurCharFrame.NecrolordFrame.Glow2:SetVertexColor(0, 0.5, 0)
+
+        CurCharFrame.KyrianFrame = CreateFrame("FRAME", nil, CurCharFrame)
+        CurCharFrame.KyrianFrame:SetSize(curWidth, curHeight)
+        CurCharFrame.KyrianFrame:SetPoint("LEFT", CurCharFrame.NecrolordFrame, "RIGHT", -25, 0)
+
+        CurCharFrame.KyrianFrame.BG = CurCharFrame.KyrianFrame:CreateTexture(nil, "BACKGROUND")
+        CurCharFrame.KyrianFrame.BG:SetSize(curWidth, curHeight)
+        CurCharFrame.KyrianFrame.BG:SetPoint("CENTER", 0, 0)
+        CurCharFrame.KyrianFrame.BG:SetAtlas("shadowlands-landingbutton-kyrian-up")
+
+        CurCharFrame.KyrianFrame.Level = CurCharFrame.KyrianFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
+        CurCharFrame.KyrianFrame.Level:SetSize(CurCharFrame.KyrianFrame:GetWidth(), CurCharFrame.KyrianFrame:GetHeight())
+        CurCharFrame.KyrianFrame.Level:SetPoint("CENTER", 2, -1)
+        CurCharFrame.KyrianFrame.Level:SetText(CharInfo.Kyrian)
+        CurCharFrame.KyrianFrame.Level:SetJustifyV("CENTER")
+        CurCharFrame.KyrianFrame.Level:SetTextColor(1, 1, 1, 1)
+
+        CurCharFrame.KyrianFrame.Glow = CurCharFrame.KyrianFrame:CreateTexture(nil, "BACKGROUND")
+        CurCharFrame.KyrianFrame.Glow:SetSize(curWidth + 10, curHeight + 10)
+        CurCharFrame.KyrianFrame.Glow:SetPoint("CENTER", 0, 0)
+        CurCharFrame.KyrianFrame.Glow:SetAtlas("shadowlands-landingbutton-kyrian-highlight")
+        CurCharFrame.KyrianFrame.Glow:SetBlendMode("add")
+        CurCharFrame.KyrianFrame.Glow:SetDesaturated(true)
+        CurCharFrame.KyrianFrame.Glow:SetVertexColor(1, 1, 1)
+
+        CurCharFrame.KyrianFrame.Glow2 = CurCharFrame.KyrianFrame:CreateTexture(nil, "BACKGROUND")
+        CurCharFrame.KyrianFrame.Glow2:SetSize(curWidth + 10, curHeight + 10)
+        CurCharFrame.KyrianFrame.Glow2:SetPoint("CENTER", 0, 0)
+        CurCharFrame.KyrianFrame.Glow2:SetAtlas("shadowlands-landingbutton-kyrian-highlight")
+        CurCharFrame.KyrianFrame.Glow2:SetBlendMode("add")
+        CurCharFrame.KyrianFrame.Glow2:SetDesaturated(true)
+        CurCharFrame.KyrianFrame.Glow2:SetVertexColor(1, 1, 1)
+
+        local font, size, other = CurCharFrame.NightFaeFrame.Level:GetFont()
+        curFont = {font, size, other}
+        CurCharFrame. NightFaeFrame.Level:SetFont(curFont[1], curFont[2] - 4, curFont[3])
+        CurCharFrame.  VenthyrFrame.Level:SetFont(curFont[1], curFont[2] - 4, curFont[3])
+        CurCharFrame.NecrolordFrame.Level:SetFont(curFont[1], curFont[2] - 4, curFont[3])
+        CurCharFrame.   KyrianFrame.Level:SetFont(curFont[1], curFont[2] - 4, curFont[3])
+    end
+
+    local curAltFrameHeight = #AZPRenownAltFrame.AllCharFrames * 65 + 75
+    AZPRenownAltFrame:SetSize(375, curAltFrameHeight)
+
+    AZPRenownAltFrame:Hide()
 end
 
 function AZPRenownFrameSizeToggle()
@@ -561,6 +782,7 @@ function AZPRenownOnEvent(_, event, ...)
         OptionsFrame.ChangeSizeButton:SetText(string.format("Size: %s", AZPRenownVars.Size))
         AZPRenownColorLoad()
         AZPRenownFrameUpdateValues()
+        AZPRenownCreateAltFrame()
     end
 end
 
