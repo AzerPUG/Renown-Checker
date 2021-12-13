@@ -24,6 +24,7 @@ function AZPRenownOnLoad()
     EventFrame:RegisterEvent("VARIABLES_LOADED")
     EventFrame:RegisterEvent("COVENANT_CHOSEN")
     EventFrame:RegisterEvent("COVENANT_SANCTUM_RENOWN_LEVEL_CHANGED")
+    EventFrame:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
     EventFrame:SetScript("OnEvent", function(...) AZPRenownOnEvent(...) end)
 
     OptionsFrame = CreateFrame("FRAME", nil, UIParent, "BackdropTemplate")
@@ -148,6 +149,13 @@ function AZPRenownCreateCompactFrame()
     AZPRenownCompactFrame.NightFaeFrame.Level:SetJustifyV("CENTER")
     AZPRenownCompactFrame.NightFaeFrame.Level:SetTextColor(1, 1, 1, 1)
 
+    AZPRenownCompactFrame.NightFaeFrame.Anima = AZPRenownCompactFrame.NightFaeFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+    AZPRenownCompactFrame.NightFaeFrame.Anima:SetSize(AZPRenownCompactFrame.NightFaeFrame:GetWidth(), AZPRenownCompactFrame.NightFaeFrame:GetHeight())
+    AZPRenownCompactFrame.NightFaeFrame.Anima:SetPoint("CENTER", 1, -60)
+    AZPRenownCompactFrame.NightFaeFrame.Anima:SetText("0")
+    AZPRenownCompactFrame.NightFaeFrame.Anima:SetJustifyV("TOP")
+    AZPRenownCompactFrame.NightFaeFrame.Anima:SetTextColor(1, 1, 1, 1)
+
     AZPRenownCompactFrame.NightFaeFrame.Glow = AZPRenownCompactFrame.NightFaeFrame:CreateTexture(nil, "ARTWORK")
     AZPRenownCompactFrame.NightFaeFrame.Glow:SetSize(curWidth + 15, curHeight + 15)
     AZPRenownCompactFrame.NightFaeFrame.Glow:SetPoint("CENTER", 0, 0)
@@ -179,6 +187,13 @@ function AZPRenownCreateCompactFrame()
     AZPRenownCompactFrame.VenthyrFrame.Level:SetText("0")
     AZPRenownCompactFrame.VenthyrFrame.Level:SetJustifyV("CENTER")
     AZPRenownCompactFrame.VenthyrFrame.Level:SetTextColor(1, 1, 1, 1)
+
+    AZPRenownCompactFrame.VenthyrFrame.Anima = AZPRenownCompactFrame.VenthyrFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+    AZPRenownCompactFrame.VenthyrFrame.Anima:SetSize(AZPRenownCompactFrame.VenthyrFrame:GetWidth(), AZPRenownCompactFrame.VenthyrFrame:GetHeight())
+    AZPRenownCompactFrame.VenthyrFrame.Anima:SetPoint("CENTER", 1, -60)
+    AZPRenownCompactFrame.VenthyrFrame.Anima:SetText("0")
+    AZPRenownCompactFrame.VenthyrFrame.Anima:SetJustifyV("TOP")
+    AZPRenownCompactFrame.VenthyrFrame.Anima:SetTextColor(1, 1, 1, 1)
 
     AZPRenownCompactFrame.VenthyrFrame.Glow = AZPRenownCompactFrame.VenthyrFrame:CreateTexture(nil, "ARTWORK")
     AZPRenownCompactFrame.VenthyrFrame.Glow:SetSize(curWidth + 5, curHeight + 5)
@@ -212,6 +227,13 @@ function AZPRenownCreateCompactFrame()
     AZPRenownCompactFrame.NecrolordFrame.Level:SetJustifyV("CENTER")
     AZPRenownCompactFrame.NecrolordFrame.Level:SetTextColor(1, 1, 1, 1)
 
+    AZPRenownCompactFrame.NecrolordFrame.Anima = AZPRenownCompactFrame.NecrolordFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+    AZPRenownCompactFrame.NecrolordFrame.Anima:SetSize(AZPRenownCompactFrame.NecrolordFrame:GetWidth(), AZPRenownCompactFrame.NecrolordFrame:GetHeight())
+    AZPRenownCompactFrame.NecrolordFrame.Anima:SetPoint("CENTER", 1, -60)
+    AZPRenownCompactFrame.NecrolordFrame.Anima:SetText("0")
+    AZPRenownCompactFrame.NecrolordFrame.Anima:SetJustifyV("TOP")
+    AZPRenownCompactFrame.NecrolordFrame.Anima:SetTextColor(1, 1, 1, 1)
+
     AZPRenownCompactFrame.NecrolordFrame.Glow = AZPRenownCompactFrame.NecrolordFrame:CreateTexture(nil, "ARTWORK")
     AZPRenownCompactFrame.NecrolordFrame.Glow:SetSize(curWidth + 5, curHeight + 5)
     AZPRenownCompactFrame.NecrolordFrame.Glow:SetPoint("CENTER", 0, 0)
@@ -243,6 +265,13 @@ function AZPRenownCreateCompactFrame()
     AZPRenownCompactFrame.KyrianFrame.Level:SetText("0")
     AZPRenownCompactFrame.KyrianFrame.Level:SetJustifyV("CENTER")
     AZPRenownCompactFrame.KyrianFrame.Level:SetTextColor(1, 1, 1, 1)
+
+    AZPRenownCompactFrame.KyrianFrame.Anima = AZPRenownCompactFrame.KyrianFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+    AZPRenownCompactFrame.KyrianFrame.Anima:SetSize(AZPRenownCompactFrame.KyrianFrame:GetWidth(), AZPRenownCompactFrame.KyrianFrame:GetHeight())
+    AZPRenownCompactFrame.KyrianFrame.Anima:SetPoint("CENTER", 1, -60)
+    AZPRenownCompactFrame.KyrianFrame.Anima:SetText("0")
+    AZPRenownCompactFrame.KyrianFrame.Anima:SetJustifyV("TOP")
+    AZPRenownCompactFrame.KyrianFrame.Anima:SetTextColor(1, 1, 1, 1)
 
     AZPRenownCompactFrame.KyrianFrame.Glow = AZPRenownCompactFrame.KyrianFrame:CreateTexture(nil, "BACKGROUND")
     AZPRenownCompactFrame.KyrianFrame.Glow:SetSize(curWidth + 10, curHeight + 10)
@@ -324,10 +353,17 @@ function AZPRenownCreateFullFrame()
 
     AZPRenownFullFrame.NightFaeFrame.Level = AZPRenownFullFrame.NightFaeFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
     AZPRenownFullFrame.NightFaeFrame.Level:SetSize(AZPRenownFullFrame.NightFaeFrame:GetWidth() * 0.25, AZPRenownFullFrame.NightFaeFrame:GetHeight())
-    AZPRenownFullFrame.NightFaeFrame.Level:SetPoint("CENTER", AZPRenownFullFrame.NightFaeFrame, "CENTER", 52, -2)
+    AZPRenownFullFrame.NightFaeFrame.Level:SetPoint("CENTER", AZPRenownFullFrame.NightFaeFrame, "CENTER", 52, 3)
     AZPRenownFullFrame.NightFaeFrame.Level:SetText("0")
     AZPRenownFullFrame.NightFaeFrame.Level:SetJustifyV("CENTER")
     AZPRenownFullFrame.NightFaeFrame.Level:SetTextColor(1, 1, 1, 1)
+
+    AZPRenownFullFrame.NightFaeFrame.Anima = AZPRenownFullFrame.NightFaeFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+    AZPRenownFullFrame.NightFaeFrame.Anima:SetSize(AZPRenownFullFrame.NightFaeFrame:GetWidth() * 0.25, AZPRenownFullFrame.NightFaeFrame:GetHeight())
+    AZPRenownFullFrame.NightFaeFrame.Anima:SetPoint("CENTER", AZPRenownFullFrame.NightFaeFrame, "CENTER", 52, -30)
+    AZPRenownFullFrame.NightFaeFrame.Anima:SetText("0")
+    AZPRenownFullFrame.NightFaeFrame.Anima:SetJustifyV("TOP")
+    AZPRenownFullFrame.NightFaeFrame.Anima:SetTextColor(1, 1, 1, 1)
 
     AZPRenownFullFrame.NightFaeFrame.Glow = AZPRenownFullFrame.NightFaeFrame:CreateTexture(nil, "ARTWORK")
     AZPRenownFullFrame.NightFaeFrame.Glow:SetSize(curWidth, curHeight)
@@ -358,10 +394,17 @@ function AZPRenownCreateFullFrame()
 
     AZPRenownFullFrame.VenthyrFrame.Level = AZPRenownFullFrame.VenthyrFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
     AZPRenownFullFrame.VenthyrFrame.Level:SetSize(AZPRenownFullFrame.VenthyrFrame:GetWidth() * 0.25, AZPRenownFullFrame.VenthyrFrame:GetHeight())
-    AZPRenownFullFrame.VenthyrFrame.Level:SetPoint("CENTER", AZPRenownFullFrame.VenthyrFrame, "CENTER", 52, -2)
+    AZPRenownFullFrame.VenthyrFrame.Level:SetPoint("CENTER", AZPRenownFullFrame.VenthyrFrame, "CENTER", 52, 3)
     AZPRenownFullFrame.VenthyrFrame.Level:SetText("0")
     AZPRenownFullFrame.VenthyrFrame.Level:SetJustifyV("CENTER")
     AZPRenownFullFrame.VenthyrFrame.Level:SetTextColor(1, 1, 1, 1)
+
+    AZPRenownFullFrame.VenthyrFrame.Anima = AZPRenownFullFrame.VenthyrFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+    AZPRenownFullFrame.VenthyrFrame.Anima:SetSize(AZPRenownFullFrame.VenthyrFrame:GetWidth() * 0.25, AZPRenownFullFrame.VenthyrFrame:GetHeight())
+    AZPRenownFullFrame.VenthyrFrame.Anima:SetPoint("CENTER", AZPRenownFullFrame.VenthyrFrame, "CENTER", 52, -30)
+    AZPRenownFullFrame.VenthyrFrame.Anima:SetText("0")
+    AZPRenownFullFrame.VenthyrFrame.Anima:SetJustifyV("TOP")
+    AZPRenownFullFrame.VenthyrFrame.Anima:SetTextColor(1, 1, 1, 1)
 
     AZPRenownFullFrame.VenthyrFrame.Glow = AZPRenownFullFrame.VenthyrFrame:CreateTexture(nil, "ARTWORK")
     AZPRenownFullFrame.VenthyrFrame.Glow:SetSize(curWidth, curHeight)
@@ -392,10 +435,17 @@ function AZPRenownCreateFullFrame()
 
     AZPRenownFullFrame.NecrolordFrame.Level = AZPRenownFullFrame.NecrolordFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
     AZPRenownFullFrame.NecrolordFrame.Level:SetSize(AZPRenownFullFrame.NecrolordFrame:GetWidth() * 0.25, AZPRenownFullFrame.NecrolordFrame:GetHeight())
-    AZPRenownFullFrame.NecrolordFrame.Level:SetPoint("CENTER", AZPRenownFullFrame.NecrolordFrame, "CENTER", 52, -3)
+    AZPRenownFullFrame.NecrolordFrame.Level:SetPoint("CENTER", AZPRenownFullFrame.NecrolordFrame, "CENTER", 52, 2)
     AZPRenownFullFrame.NecrolordFrame.Level:SetText("0")
     AZPRenownFullFrame.NecrolordFrame.Level:SetJustifyV("CENTER")
     AZPRenownFullFrame.NecrolordFrame.Level:SetTextColor(1, 1, 1, 1)
+
+    AZPRenownFullFrame.NecrolordFrame.Anima = AZPRenownFullFrame.NecrolordFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+    AZPRenownFullFrame.NecrolordFrame.Anima:SetSize(AZPRenownFullFrame.NecrolordFrame:GetWidth() * 0.25, AZPRenownFullFrame.NecrolordFrame:GetHeight())
+    AZPRenownFullFrame.NecrolordFrame.Anima:SetPoint("CENTER", AZPRenownFullFrame.NecrolordFrame, "CENTER", 52, -30)
+    AZPRenownFullFrame.NecrolordFrame.Anima:SetText("0")
+    AZPRenownFullFrame.NecrolordFrame.Anima:SetJustifyV("TOP")
+    AZPRenownFullFrame.NecrolordFrame.Anima:SetTextColor(1, 1, 1, 1)
 
     AZPRenownFullFrame.NecrolordFrame.Glow = AZPRenownFullFrame.NecrolordFrame:CreateTexture(nil, "ARTWORK")
     AZPRenownFullFrame.NecrolordFrame.Glow:SetSize(curWidth, curHeight)
@@ -426,10 +476,17 @@ function AZPRenownCreateFullFrame()
 
     AZPRenownFullFrame.KyrianFrame.Level = AZPRenownFullFrame.KyrianFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
     AZPRenownFullFrame.KyrianFrame.Level:SetSize(AZPRenownFullFrame.KyrianFrame:GetWidth() * 0.25, AZPRenownFullFrame.KyrianFrame:GetHeight())
-    AZPRenownFullFrame.KyrianFrame.Level:SetPoint("CENTER", AZPRenownFullFrame.KyrianFrame, "CENTER", 52, -2)
+    AZPRenownFullFrame.KyrianFrame.Level:SetPoint("CENTER", AZPRenownFullFrame.KyrianFrame, "CENTER", 52, 3)
     AZPRenownFullFrame.KyrianFrame.Level:SetText("0")
     AZPRenownFullFrame.KyrianFrame.Level:SetJustifyV("CENTER")
     AZPRenownFullFrame.KyrianFrame.Level:SetTextColor(1, 1, 1, 1)
+
+    AZPRenownFullFrame.KyrianFrame.Anima = AZPRenownFullFrame.KyrianFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+    AZPRenownFullFrame.KyrianFrame.Anima:SetSize(AZPRenownFullFrame.KyrianFrame:GetWidth() * 0.25, AZPRenownFullFrame.KyrianFrame:GetHeight())
+    AZPRenownFullFrame.KyrianFrame.Anima:SetPoint("CENTER", AZPRenownFullFrame.KyrianFrame, "CENTER", 52, -30)
+    AZPRenownFullFrame.KyrianFrame.Anima:SetText("0")
+    AZPRenownFullFrame.KyrianFrame.Anima:SetJustifyV("TOP")
+    AZPRenownFullFrame.KyrianFrame.Anima:SetTextColor(1, 1, 1, 1)
 
     AZPRenownFullFrame.KyrianFrame.Glow = AZPRenownFullFrame.KyrianFrame:CreateTexture(nil, "ARTWORK")
     AZPRenownFullFrame.KyrianFrame.Glow:SetSize(curWidth, curHeight)
@@ -460,6 +517,8 @@ function AZPRenownCreateAltFrame()
     local _, _, curClass = UnitClass("PLAYER")
     local curActivCov = C_Covenants.GetActiveCovenantID()
     if AZPRenownLevels[curGUID] == nil then AZPRenownLevels[curGUID] = {NightFae = 0, Venthyr = 0, Necrolord = 0, Kyrian = 0} end
+    if AZPRenownLevels[curGUID].Anima == nil then AZPRenownLevels[curGUID].Anima = {NightFae = 0, Venthyr = 0, Necrolord = 0, Kyrian = 0} end
+
     AZPRenownLevels[curGUID].Name = curCharName
     AZPRenownLevels[curGUID].Class = curClass
     AZPRenownLevels[curGUID].Active = curActivCov
@@ -745,9 +804,13 @@ function AZPRenownFrameUpdateValues()
                 local curCovName = CovenantNames[curCovID]
                 local curGUID = UnitGUID("PLAYER")
                 local curCovLevel = C_CovenantSanctumUI.GetRenownLevel()
+                local currencyInfo = C_CurrencyInfo.GetCurrencyInfo(1813)
+                local curAnimaAmount = string.format("|T%s:0|t%.2fk", currencyInfo.iconFileID, (currencyInfo.quantity / 1000))
                 if AZPRenownLevels == nil then AZPRenownLevels = {} end
                 if AZPRenownLevels[curGUID] == nil then AZPRenownLevels[curGUID] = {NightFae = 0, Venthyr = 0, Necrolord = 0, Kyrian = 0,} end
+                if AZPRenownLevels[curGUID].Anima == nil then AZPRenownLevels[curGUID].Anima = {NightFae = 0, Venthyr = 0, Necrolord = 0, Kyrian = 0} end
                 AZPRenownLevels[curGUID][curCovName] = curCovLevel
+                AZPRenownLevels[curGUID].Anima[curCovName] = curAnimaAmount
                 AZPRenownSetLevels(curGUID)
                 if AZPRenownVars.Size == "Compact" then AZPRenownFrameMarkActiveCompact() end
                 if AZPRenownVars.Size == "Full" then AZPRenownFrameMarkActiveFull() end
@@ -761,6 +824,8 @@ function AZPRenownOnEvent(_, event, ...)
         AZPRenownFrameUpdateValues()
     elseif event == "COVENANT_SANCTUM_RENOWN_LEVEL_CHANGED" then
         AZPRenownFrameUpdateValues()
+    elseif event == "CURRENCY_DISPLAY_UPDATE" then
+        if ... == 1813 then AZPRenownFrameUpdateValues() end
     elseif event == "VARIABLES_LOADED" then
         AZPRenownLoadPositionFrame()
         OptionsFrame.ChangeSizeButton:SetText(string.format("Size: %s", AZPRenownVars.Size))
@@ -777,19 +842,27 @@ function AZPRenownSetFrames()
     {
         AZPRenownCompactFrame.Header,
         AZPRenownCompactFrame.NightFaeFrame.Level,
+        AZPRenownCompactFrame.NightFaeFrame.Anima,
         AZPRenownCompactFrame.VenthyrFrame.Level,
+        AZPRenownCompactFrame.VenthyrFrame.Anima,
         AZPRenownCompactFrame.NecrolordFrame.Level,
+        AZPRenownCompactFrame.NecrolordFrame.Anima,
         AZPRenownCompactFrame.KyrianFrame.Level,
+        AZPRenownCompactFrame.KyrianFrame.Anima,
 
         AZPRenownFullFrame.Header,
-        AZPRenownFullFrame.NightFaeFrame.Level,
         AZPRenownFullFrame.NightFaeFrame.Name,
-        AZPRenownFullFrame.VenthyrFrame.Level,
+        AZPRenownFullFrame.NightFaeFrame.Level,
+        AZPRenownFullFrame.NightFaeFrame.Anima,
         AZPRenownFullFrame.VenthyrFrame.Name,
-        AZPRenownFullFrame.NecrolordFrame.Level,
+        AZPRenownFullFrame.VenthyrFrame.Level,
+        AZPRenownFullFrame.VenthyrFrame.Anima,
         AZPRenownFullFrame.NecrolordFrame.Name,
-        AZPRenownFullFrame.KyrianFrame.Level,
+        AZPRenownFullFrame.NecrolordFrame.Level,
+        AZPRenownFullFrame.NecrolordFrame.Anima,
         AZPRenownFullFrame.KyrianFrame.Name,
+        AZPRenownFullFrame.KyrianFrame.Level,
+        AZPRenownFullFrame.KyrianFrame.Anima,
 
         AZPRenownAltFrame.Header,
         AZPRenownAltFrame.SubHeader,
@@ -824,10 +897,20 @@ function AZPRenownSetLevels(curGUID)
     AZPRenownCompactFrame.NecrolordFrame.Level:SetText(AZPRenownLevels[curGUID].Necrolord)
     AZPRenownCompactFrame.   KyrianFrame.Level:SetText(AZPRenownLevels[curGUID].   Kyrian)
 
+    AZPRenownCompactFrame. NightFaeFrame.Anima:SetText(AZPRenownLevels[curGUID].Anima. NightFae)
+    AZPRenownCompactFrame.  VenthyrFrame.Anima:SetText(AZPRenownLevels[curGUID].Anima.  Venthyr)
+    AZPRenownCompactFrame.NecrolordFrame.Anima:SetText(AZPRenownLevels[curGUID].Anima.Necrolord)
+    AZPRenownCompactFrame.   KyrianFrame.Anima:SetText(AZPRenownLevels[curGUID].Anima.   Kyrian)
+
     AZPRenownFullFrame. NightFaeFrame.Level:SetText(AZPRenownLevels[curGUID]. NightFae)
     AZPRenownFullFrame.  VenthyrFrame.Level:SetText(AZPRenownLevels[curGUID].  Venthyr)
     AZPRenownFullFrame.NecrolordFrame.Level:SetText(AZPRenownLevels[curGUID].Necrolord)
     AZPRenownFullFrame.   KyrianFrame.Level:SetText(AZPRenownLevels[curGUID].   Kyrian)
+
+    AZPRenownFullFrame. NightFaeFrame.Anima:SetText(AZPRenownLevels[curGUID].Anima. NightFae)
+    AZPRenownFullFrame.  VenthyrFrame.Anima:SetText(AZPRenownLevels[curGUID].Anima.  Venthyr)
+    AZPRenownFullFrame.NecrolordFrame.Anima:SetText(AZPRenownLevels[curGUID].Anima.Necrolord)
+    AZPRenownFullFrame.   KyrianFrame.Anima:SetText(AZPRenownLevels[curGUID].Anima.   Kyrian)
 end
 
 function AZPRenownLoadPositionFrame()
