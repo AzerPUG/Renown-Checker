@@ -568,6 +568,7 @@ function AZPRenownCreateAltFrame()
     AZPRenownAltFrame.AllCharFrames = {}
 
     for curGUID, CharInfo in pairs(AZPRenownLevels) do
+        if CharInfo.Anima == nil then CharInfo.Anima = {NightFae = 0, Venthyr = 0, Necrolord = 0, Kyrian = 0} end
         local CurCharFrame = CreateFrame("FRAME", nil, AZPRenownAltFrame)
         CurCharFrame:SetSize(375, curHeight)
           if #AZPRenownAltFrame.AllCharFrames == 0 then CurCharFrame:SetPoint("TOPLEFT", 0, -65)
@@ -599,6 +600,13 @@ function AZPRenownCreateAltFrame()
         CurCharFrame.NightFaeFrame.Level:SetText(CharInfo.NightFae)
         CurCharFrame.NightFaeFrame.Level:SetJustifyV("CENTER")
         CurCharFrame.NightFaeFrame.Level:SetTextColor(1, 1, 1, 1)
+
+        CurCharFrame.NightFaeFrame.Anima = CurCharFrame.NightFaeFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+        CurCharFrame.NightFaeFrame.Anima:SetSize(CurCharFrame.NightFaeFrame:GetWidth(), CurCharFrame.NightFaeFrame:GetHeight())
+        CurCharFrame.NightFaeFrame.Anima:SetPoint("CENTER", 1, -60)
+        CurCharFrame.NightFaeFrame.Anima:SetText(CharInfo.Anima.NightFae)
+        CurCharFrame.NightFaeFrame.Anima:SetJustifyV("TOP")
+        CurCharFrame.NightFaeFrame.Anima:SetTextColor(1, 1, 1, 1)
 
         CurCharFrame.NightFaeFrame.Glow = CurCharFrame.NightFaeFrame:CreateTexture(nil, "ARTWORK")
         CurCharFrame.NightFaeFrame.Glow:SetSize(curWidth + 15, curHeight + 15)
@@ -632,6 +640,13 @@ function AZPRenownCreateAltFrame()
         CurCharFrame.VenthyrFrame.Level:SetJustifyV("CENTER")
         CurCharFrame.VenthyrFrame.Level:SetTextColor(1, 1, 1, 1)
 
+        CurCharFrame.VenthyrFrame.Anima = CurCharFrame.VenthyrFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+        CurCharFrame.VenthyrFrame.Anima:SetSize(CurCharFrame.VenthyrFrame:GetWidth(), CurCharFrame.VenthyrFrame:GetHeight())
+        CurCharFrame.VenthyrFrame.Anima:SetPoint("CENTER", 1, -60)
+        CurCharFrame.VenthyrFrame.Anima:SetText(CharInfo.Anima.Venthyr)
+        CurCharFrame.VenthyrFrame.Anima:SetJustifyV("TOP")
+        CurCharFrame.VenthyrFrame.Anima:SetTextColor(1, 1, 1, 1)
+
         CurCharFrame.VenthyrFrame.Glow = CurCharFrame.VenthyrFrame:CreateTexture(nil, "ARTWORK")
         CurCharFrame.VenthyrFrame.Glow:SetSize(curWidth + 5, curHeight + 5)
         CurCharFrame.VenthyrFrame.Glow:SetPoint("CENTER", 0, 0)
@@ -664,6 +679,13 @@ function AZPRenownCreateAltFrame()
         CurCharFrame.NecrolordFrame.Level:SetJustifyV("CENTER")
         CurCharFrame.NecrolordFrame.Level:SetTextColor(1, 1, 1, 1)
 
+        CurCharFrame.NecrolordFrame.Anima = CurCharFrame.NecrolordFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+        CurCharFrame.NecrolordFrame.Anima:SetSize(CurCharFrame.NecrolordFrame:GetWidth(), CurCharFrame.NecrolordFrame:GetHeight())
+        CurCharFrame.NecrolordFrame.Anima:SetPoint("CENTER", 1, -60)
+        CurCharFrame.NecrolordFrame.Anima:SetText(CharInfo.Anima.Necrolord)
+        CurCharFrame.NecrolordFrame.Anima:SetJustifyV("TOP")
+        CurCharFrame.NecrolordFrame.Anima:SetTextColor(1, 1, 1, 1)
+
         CurCharFrame.NecrolordFrame.Glow = CurCharFrame.NecrolordFrame:CreateTexture(nil, "ARTWORK")
         CurCharFrame.NecrolordFrame.Glow:SetSize(curWidth + 5, curHeight + 5)
         CurCharFrame.NecrolordFrame.Glow:SetPoint("CENTER", 0, 0)
@@ -695,6 +717,13 @@ function AZPRenownCreateAltFrame()
         CurCharFrame.KyrianFrame.Level:SetText(CharInfo.Kyrian)
         CurCharFrame.KyrianFrame.Level:SetJustifyV("CENTER")
         CurCharFrame.KyrianFrame.Level:SetTextColor(1, 1, 1, 1)
+
+        CurCharFrame.KyrianFrame.Anima = CurCharFrame.KyrianFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+        CurCharFrame.KyrianFrame.Anima:SetSize(CurCharFrame.KyrianFrame:GetWidth(), CurCharFrame.KyrianFrame:GetHeight())
+        CurCharFrame.KyrianFrame.Anima:SetPoint("CENTER", 1, -60)
+        CurCharFrame.KyrianFrame.Anima:SetText(CharInfo.Anima.Kyrian)
+        CurCharFrame.KyrianFrame.Anima:SetJustifyV("TOP")
+        CurCharFrame.KyrianFrame.Anima:SetTextColor(1, 1, 1, 1)
 
         CurCharFrame.KyrianFrame.Glow = CurCharFrame.KyrianFrame:CreateTexture(nil, "BACKGROUND")
         CurCharFrame.KyrianFrame.Glow:SetSize(curWidth + 10, curHeight + 10)
