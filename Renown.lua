@@ -1,7 +1,7 @@
 local AZPRenownCompactFrame, AZPRenownFullFrame, AZPRenownAltFrame = nil, nil, nil
 local EventFrame, OptionsFrame = nil, nil
 
-local AZPRenownVersion = 11
+local AZPRenownVersion = 12
 
 local CovenantNames =
 {
@@ -563,11 +563,18 @@ function AZPRenownCreateAltFrame()
     AZPRenownAltFrame.CloseButton:SetPoint("TOPRIGHT", AZPRenownAltFrame, "TOPRIGHT", 2, 2)
     AZPRenownAltFrame.CloseButton:SetScript("OnClick", function() AZPRenownAltFrame:Hide() end)
 
+    AZPRenownCheckerCreateAltFrames()
+
+    AZPRenownAltFrame:Hide()
+end
+
+function AZPRenownCheckerCreateAltFrames()
     local curWidth, curHeight = 75, 75
 
     AZPRenownAltFrame.AllCharFrames = {}
 
-    for curGUID, CharInfo in pairs(AZPRenownLevels) do
+    for curCharGUID, CharInfo in pairs(AZPRenownLevels) do
+        CharInfo.GUID = curCharGUID
         if CharInfo.Anima == nil then CharInfo.Anima = {NightFae = 0, Venthyr = 0, Necrolord = 0, Kyrian = 0} end
         local CurCharFrame = CreateFrame("FRAME", nil, AZPRenownAltFrame)
         CurCharFrame:SetSize(375, curHeight)
@@ -584,6 +591,11 @@ function AZPRenownCreateAltFrame()
         CurCharFrame.CharName:SetText(curName)
         CurCharFrame.CharName:SetJustifyV("CENTER")
         CurCharFrame.CharName:SetTextColor(1, 1, 1, 1)
+
+        CurCharFrame.DeleteButton = CreateFrame("BUTTON", nil, CurCharFrame, "UIPanelCloseButton")
+        CurCharFrame.DeleteButton:SetSize(25, 26)
+        CurCharFrame.DeleteButton:SetPoint("RIGHT", CurCharFrame.CharName, "LEFT", 15, 0)
+        CurCharFrame.DeleteButton:SetScript("OnClick", function() AZPRenownCheckerDeleteChar(curCharGUID) end)
 
         CurCharFrame.NightFaeFrame = CreateFrame("FRAME", nil, CurCharFrame)
         CurCharFrame.NightFaeFrame:SetSize(curWidth, curHeight)
@@ -751,8 +763,19 @@ function AZPRenownCreateAltFrame()
 
     local curAltFrameHeight = #AZPRenownAltFrame.AllCharFrames * 65 + 75
     AZPRenownAltFrame:SetSize(375, curAltFrameHeight)
+end
 
-    AZPRenownAltFrame:Hide()
+function AZPRenownCheckerDeleteChar(curGUID)
+    AZPRenownLevels[curGUID] = nil
+
+    for X, Y in pairs(AZPRenownAltFrame.AllCharFrames) do
+        AZPRenownAltFrame.AllCharFrames[X].parent = nil
+        AZPRenownAltFrame.AllCharFrames[X]:Hide()
+        AZPRenownAltFrame.AllCharFrames[X] = nil
+        --if AZPRenownAltFrame.AllCharFrames.GUID == curGUID then AZPRenownAltFrame.AllCharFrames[X] = nil end
+    end
+
+    AZPRenownCheckerCreateAltFrames()
 end
 
 function AZPRenownFrameSizeToggle()
