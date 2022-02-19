@@ -879,6 +879,7 @@ function AZPRenownOnEvent(_, event, ...)
     elseif event == "CURRENCY_DISPLAY_UPDATE" then
         if ... == 1813 then AZPRenownFrameUpdateValues() end
     elseif event == "VARIABLES_LOADED" then
+        if AZPRenownLevels == nil then AZPRenownLevels = {} end
         AZPRenownLoadPositionFrame()
         OptionsFrame.ChangeSizeButton:SetText(string.format("Size: %s", AZPRenownVars.Size))
         AZPRenownFrameUpdateValues()
