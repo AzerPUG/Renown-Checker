@@ -1,7 +1,7 @@
 local AZPRenownCompactFrame, AZPRenownFullFrame, AZPRenownAltFrame = nil, nil, nil
 local EventFrame, OptionsFrame = nil, nil
 
-local AZPRenownVersion = 13
+local AZPRenownVersion = 14
 
 local CovenantNames =
 {
@@ -18,6 +18,7 @@ local curFont = {}
 local valuesRecentlyUpdated = false
 local AZPRenownSizes = {Full = {Width = 200, Height = 250}, Compact = {Width = 200, Height = 125}}
 local ColorPickerFrameInUse = nil
+local TotTransAnima = 0
 
 function AZPRenownOnLoad()
     EventFrame = CreateFrame("FRAME", nil)
@@ -547,7 +548,6 @@ function AZPRenownCreateAltFrame()
     AZPRenownAltFrame.SubHeader = AZPRenownAltFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
     AZPRenownAltFrame.SubHeader:SetSize(AZPRenownAltFrame:GetWidth(), 25)
     AZPRenownAltFrame.SubHeader:SetPoint("TOP", AZPRenownAltFrame.Header, "BOTTOM", 0, 5)
-    AZPRenownAltFrame.SubHeader:SetText("Alt Frame")
 
     AZPRenownAltFrame.OpenOptionPanelButton = CreateFrame("Frame", nil, AZPRenownAltFrame)
     AZPRenownAltFrame.OpenOptionPanelButton:SetSize(15, 15)
@@ -563,9 +563,10 @@ function AZPRenownCreateAltFrame()
     AZPRenownAltFrame.CloseButton:SetPoint("TOPRIGHT", AZPRenownAltFrame, "TOPRIGHT", 2, 2)
     AZPRenownAltFrame.CloseButton:SetScript("OnClick", function() AZPRenownAltFrame:Hide() end)
 
-    AZPRenownCheckerCreateAltFrames()
-
     AZPRenownAltFrame:Hide()
+
+    AZPRenownCheckerCreateAltFrames()
+    AZPRenownAltFrame.SubHeader:SetText(string.format("Alt Frame - Total Transferable Anima: %dk", TotTransAnima))
 end
 
 function AZPRenownCheckerCreateAltFrames()
@@ -582,6 +583,23 @@ function AZPRenownCheckerCreateAltFrames()
         else CurCharFrame:SetPoint("TOP", AZPRenownAltFrame.AllCharFrames[#AZPRenownAltFrame.AllCharFrames], "BOTTOM", 0, 10) end
 
         AZPRenownAltFrame.AllCharFrames[#AZPRenownAltFrame.AllCharFrames + 1] = CurCharFrame
+
+        local curAnima = {NightFae = 0, Venthyr = 0, Necrolord = 0, Kyrian = 0,}
+        local AStr = CharInfo.Anima
+        local curTranfAnima = 0
+
+        print(CharInfo.Name)
+
+        print("curAnimaStrings.NightFae:", AStr.NightFae)
+        if AStr. NightFae ~= 0 then curAnima. NightFae = string.sub(AStr. NightFae, string.find(AStr. NightFae, "|t") + 2, string.find(AStr. NightFae, "k") - 4) end
+        if AStr.  Venthyr ~= 0 then curAnima.  Venthyr = string.sub(AStr.  Venthyr, string.find(AStr.  Venthyr, "|t") + 2, string.find(AStr.  Venthyr, "k") - 4) end
+        if AStr.Necrolord ~= 0 then curAnima.Necrolord = string.sub(AStr.Necrolord, string.find(AStr.Necrolord, "|t") + 2, string.find(AStr.Necrolord, "k") - 4) end
+        if AStr.   Kyrian ~= 0 then curAnima.   Kyrian = string.sub(AStr.   Kyrian, string.find(AStr.   Kyrian, "|t") + 2, string.find(AStr.   Kyrian, "k") - 4) end
+
+        curTranfAnima = tonumber(curAnima.NightFae) + tonumber(curAnima.Venthyr) + tonumber(curAnima.Necrolord) + tonumber(curAnima.Kyrian)
+        TotTransAnima = TotTransAnima + curTranfAnima
+
+        print("TotTransAnima:", TotTransAnima)
 
         CurCharFrame.CharName = CurCharFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
         CurCharFrame.CharName:SetSize(150, 25)
