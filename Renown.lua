@@ -1,7 +1,7 @@
 local AZPRenownCompactFrame, AZPRenownFullFrame, AZPRenownAltFrame = nil, nil, nil
 local EventFrame, OptionsFrame = nil, nil
 
-local AZPRenownVersion = 14
+local AZPRenownVersion = 15
 
 local CovenantNames =
 {
@@ -565,11 +565,11 @@ function AZPRenownCreateAltFrame()
 
     AZPRenownAltFrame:Hide()
 
-    AZPRenownCheckerCreateAltFrames()
+    AZPRenownAddDataToAltFrame()
     AZPRenownAltFrame.SubHeader:SetText(string.format("Alt Frame - Total Transferable Anima: %dk", TotTransAnima))
 end
 
-function AZPRenownCheckerCreateAltFrames()
+function AZPRenownAddDataToAltFrame()
     local curWidth, curHeight = 75, 75
 
     AZPRenownAltFrame.AllCharFrames = {}
@@ -588,9 +588,6 @@ function AZPRenownCheckerCreateAltFrames()
         local AStr = CharInfo.Anima
         local curTranfAnima = 0
 
-        print(CharInfo.Name)
-
-        print("curAnimaStrings.NightFae:", AStr.NightFae)
         if AStr. NightFae ~= 0 then curAnima. NightFae = string.sub(AStr. NightFae, string.find(AStr. NightFae, "|t") + 2, string.find(AStr. NightFae, "k") - 4) end
         if AStr.  Venthyr ~= 0 then curAnima.  Venthyr = string.sub(AStr.  Venthyr, string.find(AStr.  Venthyr, "|t") + 2, string.find(AStr.  Venthyr, "k") - 4) end
         if AStr.Necrolord ~= 0 then curAnima.Necrolord = string.sub(AStr.Necrolord, string.find(AStr.Necrolord, "|t") + 2, string.find(AStr.Necrolord, "k") - 4) end
@@ -598,8 +595,6 @@ function AZPRenownCheckerCreateAltFrames()
 
         curTranfAnima = tonumber(curAnima.NightFae) + tonumber(curAnima.Venthyr) + tonumber(curAnima.Necrolord) + tonumber(curAnima.Kyrian)
         TotTransAnima = TotTransAnima + curTranfAnima
-
-        print("TotTransAnima:", TotTransAnima)
 
         CurCharFrame.CharName = CurCharFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
         CurCharFrame.CharName:SetSize(150, 25)
@@ -793,7 +788,7 @@ function AZPRenownCheckerDeleteChar(curGUID)
         --if AZPRenownAltFrame.AllCharFrames.GUID == curGUID then AZPRenownAltFrame.AllCharFrames[X] = nil end
     end
 
-    AZPRenownCheckerCreateAltFrames()
+    AZPRenownAddDataToAltFrame()
 end
 
 function AZPRenownFrameSizeToggle()
@@ -892,8 +887,10 @@ end
 function AZPRenownOnEvent(_, event, ...)
     if event == "COVENANT_CHOSEN" then
         AZPRenownFrameUpdateValues()
+        AZPRenownAddDataToAltFrame()
     elseif event == "COVENANT_SANCTUM_RENOWN_LEVEL_CHANGED" then
         AZPRenownFrameUpdateValues()
+        AZPRenownAddDataToAltFrame()
     elseif event == "CURRENCY_DISPLAY_UPDATE" then
         if ... == 1813 then AZPRenownFrameUpdateValues() end
     elseif event == "VARIABLES_LOADED" then
@@ -901,9 +898,7 @@ function AZPRenownOnEvent(_, event, ...)
         AZPRenownLoadPositionFrame()
         OptionsFrame.ChangeSizeButton:SetText(string.format("Size: %s", AZPRenownVars.Size))
         AZPRenownFrameUpdateValues()
-        AZPRenownCreateAltFrame()
-        AZPRenownSetFrames()
-        AZPRenownColorLoad()
+        C_Timer.After(1, function() AZPRenownCreateAltFrame() AZPRenownSetFrames() AZPRenownColorLoad() end)
     end
 end
 
