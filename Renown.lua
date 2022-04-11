@@ -76,6 +76,17 @@ function AZPRenownOnLoad()
     OptionsFrame.ChangeSizeButton:SetPoint("BOTTOM", OptionsFrame.BGColorButton, "TOP", 0, 10)
     OptionsFrame.ChangeSizeButton:SetScript("OnClick", function() AZPRenownFrameSizeToggle() end)
 
+    OptionsFrame.RepositionButton = CreateFrame("Button", nil, OptionsFrame, "UIPanelButtonTemplate")
+    OptionsFrame.RepositionButton:SetSize(75, 20)
+    OptionsFrame.RepositionButton:SetPoint("LEFT", OptionsFrame.ChangeSizeButton, "RIGHT", 5, 0)
+    OptionsFrame.RepositionButton:SetText("Reposition")
+    OptionsFrame.RepositionButton:SetScript("OnClick",
+    function()
+        AZPRenownCompactFrame:ClearAllPoints() AZPRenownCompactFrame:SetPoint("CENTER", 0, 0)
+        AZPRenownFullFrame:ClearAllPoints() AZPRenownFullFrame:SetPoint("CENTER", 0, 0)
+        AZPRenownSavePositionFrame()
+    end)
+
     OptionsFrame.TextColorButton = CreateFrame("Button", nil, OptionsFrame, "UIPanelButtonTemplate")
     OptionsFrame.TextColorButton:SetSize(75, 20)
     OptionsFrame.TextColorButton:SetPoint("LEFT", OptionsFrame.BorderColorButton, "RIGHT", 5, 0)
