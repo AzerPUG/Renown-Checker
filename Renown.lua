@@ -906,10 +906,9 @@ function AZPRenownOnEvent(_, event, ...)
         if ... == 1813 then AZPRenownFrameUpdateValues() end
     elseif event == "VARIABLES_LOADED" then
         if AZPRenownLevels == nil then AZPRenownLevels = {} end
-        AZPRenownLoadPositionFrame()
         OptionsFrame.ChangeSizeButton:SetText(string.format("Size: %s", AZPRenownVars.Size))
         AZPRenownFrameUpdateValues()
-        C_Timer.After(1, function() AZPRenownCreateAltFrame() AZPRenownSetFrames() AZPRenownColorLoad() end)
+        C_Timer.After(1, function() AZPRenownCreateAltFrame() AZPRenownLoadPositionFrame() AZPRenownSetFrames() AZPRenownColorLoad() end)
     end
 end
 
@@ -1007,6 +1006,10 @@ function AZPRenownLoadPositionFrame()
             if AZPRenownVars.Size == "Compact" then AZPRenownCompactFrame:Show()
         elseif AZPRenownVars.Size == "Full" then AZPRenownFullFrame:Show() end
     end
+
+    if AZPRenownVars.Position.AltFrame == nil then AZPRenownVars.Position.AltFrame = {"CENTER", nil, nil, 0, 0} end
+    local AltPos = AZPRenownVars.Position.AltFrame
+    AZPRenownAltFrame:SetPoint(AltPos[1], AltPos[4], AltPos[5])
 end
 
 function AZPRenownSavePositionFrame()
@@ -1014,6 +1017,9 @@ function AZPRenownSavePositionFrame()
         if AZPRenownVars.Size == "Compact" then v1, v2, v3, v4, v5 = AZPRenownCompactFrame:GetPoint()
     elseif AZPRenownVars.Size == "Full" then v1, v2, v3, v4, v5 = AZPRenownFullFrame:GetPoint() end
     AZPRenownVars.Position = {v1, v2, v3, v4, v5}
+
+    local a1, a2, a3, a4, a5 = AZPRenownAltFrame:GetPoint()
+    AZPRenownVars.Position.AltFrame = {a1, a2, a3, a4, a5}
 end
 
 function AZPRenownShowHideToggle()
