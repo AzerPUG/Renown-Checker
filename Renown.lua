@@ -1,7 +1,7 @@
 local AZPRenownCompactFrame, AZPRenownFullFrame, AZPRenownAltFrame = nil, nil, nil
 local EventFrame, OptionsFrame = nil, nil
 
-local AZPRenownVersion = 17
+local AZPRenownVersion = 18
 
 local CovenantNames =
 {
@@ -358,20 +358,20 @@ function AZPRenownCreateFullFrame()
     AZPRenownFullFrame.NightFaeFrame.BG:SetAtlas("shadowlands-landingpage-renownbutton-nightfae")
 
     AZPRenownFullFrame.NightFaeFrame.Name = AZPRenownFullFrame. NightFaeFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-    AZPRenownFullFrame.NightFaeFrame.Name:SetSize(AZPRenownFullFrame.NightFaeFrame:GetWidth() * 0.75, AZPRenownFullFrame.NightFaeFrame:GetHeight())
+    AZPRenownFullFrame.NightFaeFrame.Name:SetSize(AZPRenownFullFrame.NightFaeFrame:GetWidth() * 0.7, AZPRenownFullFrame.NightFaeFrame:GetHeight())
     AZPRenownFullFrame.NightFaeFrame.Name:SetPoint("LEFT", AZPRenownFullFrame.NightFaeFrame, "LEFT", 0, -2)
     AZPRenownFullFrame.NightFaeFrame.Name:SetText("Night Fae")
     AZPRenownFullFrame.NightFaeFrame.Name:SetJustifyV("CENTER")
 
     AZPRenownFullFrame.NightFaeFrame.Level = AZPRenownFullFrame.NightFaeFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
-    AZPRenownFullFrame.NightFaeFrame.Level:SetSize(AZPRenownFullFrame.NightFaeFrame:GetWidth() * 0.25, AZPRenownFullFrame.NightFaeFrame:GetHeight())
+    AZPRenownFullFrame.NightFaeFrame.Level:SetSize(AZPRenownFullFrame.NightFaeFrame:GetWidth() * 0.3, AZPRenownFullFrame.NightFaeFrame:GetHeight())
     AZPRenownFullFrame.NightFaeFrame.Level:SetPoint("CENTER", AZPRenownFullFrame.NightFaeFrame, "CENTER", 52, 3)
     AZPRenownFullFrame.NightFaeFrame.Level:SetText("0")
     AZPRenownFullFrame.NightFaeFrame.Level:SetJustifyV("CENTER")
     AZPRenownFullFrame.NightFaeFrame.Level:SetTextColor(1, 1, 1, 1)
 
     AZPRenownFullFrame.NightFaeFrame.Anima = AZPRenownFullFrame.NightFaeFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
-    AZPRenownFullFrame.NightFaeFrame.Anima:SetSize(AZPRenownFullFrame.NightFaeFrame:GetWidth() * 0.25, AZPRenownFullFrame.NightFaeFrame:GetHeight())
+    AZPRenownFullFrame.NightFaeFrame.Anima:SetSize(AZPRenownFullFrame.NightFaeFrame:GetWidth() * 0., AZPRenownFullFrame.NightFaeFrame:GetHeight())
     AZPRenownFullFrame.NightFaeFrame.Anima:SetPoint("CENTER", AZPRenownFullFrame.NightFaeFrame, "CENTER", 52, -30)
     AZPRenownFullFrame.NightFaeFrame.Anima:SetText("0")
     AZPRenownFullFrame.NightFaeFrame.Anima:SetJustifyV("TOP")
@@ -399,20 +399,20 @@ function AZPRenownCreateFullFrame()
     AZPRenownFullFrame.VenthyrFrame.BG:SetAtlas("shadowlands-landingpage-renownbutton-venthyr")
 
     AZPRenownFullFrame.VenthyrFrame.Name = AZPRenownFullFrame. VenthyrFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-    AZPRenownFullFrame.VenthyrFrame.Name:SetSize(AZPRenownFullFrame.VenthyrFrame:GetWidth() * 0.75, AZPRenownFullFrame.VenthyrFrame:GetHeight())
+    AZPRenownFullFrame.VenthyrFrame.Name:SetSize(AZPRenownFullFrame.VenthyrFrame:GetWidth() * 0.7, AZPRenownFullFrame.VenthyrFrame:GetHeight())
     AZPRenownFullFrame.VenthyrFrame.Name:SetPoint("LEFT", AZPRenownFullFrame.VenthyrFrame, "LEFT", 0, -3)
     AZPRenownFullFrame.VenthyrFrame.Name:SetText("Venthyr")
     AZPRenownFullFrame.VenthyrFrame.Name:SetJustifyV("CENTER")
 
     AZPRenownFullFrame.VenthyrFrame.Level = AZPRenownFullFrame.VenthyrFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
-    AZPRenownFullFrame.VenthyrFrame.Level:SetSize(AZPRenownFullFrame.VenthyrFrame:GetWidth() * 0.25, AZPRenownFullFrame.VenthyrFrame:GetHeight())
+    AZPRenownFullFrame.VenthyrFrame.Level:SetSize(AZPRenownFullFrame.VenthyrFrame:GetWidth() * 0.3, AZPRenownFullFrame.VenthyrFrame:GetHeight())
     AZPRenownFullFrame.VenthyrFrame.Level:SetPoint("CENTER", AZPRenownFullFrame.VenthyrFrame, "CENTER", 52, 3)
     AZPRenownFullFrame.VenthyrFrame.Level:SetText("0")
     AZPRenownFullFrame.VenthyrFrame.Level:SetJustifyV("CENTER")
     AZPRenownFullFrame.VenthyrFrame.Level:SetTextColor(1, 1, 1, 1)
 
     AZPRenownFullFrame.VenthyrFrame.Anima = AZPRenownFullFrame.VenthyrFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
-    AZPRenownFullFrame.VenthyrFrame.Anima:SetSize(AZPRenownFullFrame.VenthyrFrame:GetWidth() * 0.25, AZPRenownFullFrame.VenthyrFrame:GetHeight())
+    AZPRenownFullFrame.VenthyrFrame.Anima:SetSize(AZPRenownFullFrame.VenthyrFrame:GetWidth() * 0.3, AZPRenownFullFrame.VenthyrFrame:GetHeight())
     AZPRenownFullFrame.VenthyrFrame.Anima:SetPoint("CENTER", AZPRenownFullFrame.VenthyrFrame, "CENTER", 52, -30)
     AZPRenownFullFrame.VenthyrFrame.Anima:SetText("0")
     AZPRenownFullFrame.VenthyrFrame.Anima:SetJustifyV("TOP")
@@ -440,20 +440,20 @@ function AZPRenownCreateFullFrame()
     AZPRenownFullFrame.NecrolordFrame.BG:SetAtlas("shadowlands-landingpage-renownbutton-necrolord")
 
     AZPRenownFullFrame.NecrolordFrame.Name = AZPRenownFullFrame. NecrolordFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-    AZPRenownFullFrame.NecrolordFrame.Name:SetSize(AZPRenownFullFrame.NecrolordFrame:GetWidth() * 0.75, AZPRenownFullFrame.NecrolordFrame:GetHeight())
+    AZPRenownFullFrame.NecrolordFrame.Name:SetSize(AZPRenownFullFrame.NecrolordFrame:GetWidth() * 0.7, AZPRenownFullFrame.NecrolordFrame:GetHeight())
     AZPRenownFullFrame.NecrolordFrame.Name:SetPoint("LEFT", AZPRenownFullFrame.NecrolordFrame, "LEFT", 0, -2)
     AZPRenownFullFrame.NecrolordFrame.Name:SetText("Necrolord")
     AZPRenownFullFrame.NecrolordFrame.Name:SetJustifyV("CENTER")
 
     AZPRenownFullFrame.NecrolordFrame.Level = AZPRenownFullFrame.NecrolordFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
-    AZPRenownFullFrame.NecrolordFrame.Level:SetSize(AZPRenownFullFrame.NecrolordFrame:GetWidth() * 0.25, AZPRenownFullFrame.NecrolordFrame:GetHeight())
+    AZPRenownFullFrame.NecrolordFrame.Level:SetSize(AZPRenownFullFrame.NecrolordFrame:GetWidth() * 0.3, AZPRenownFullFrame.NecrolordFrame:GetHeight())
     AZPRenownFullFrame.NecrolordFrame.Level:SetPoint("CENTER", AZPRenownFullFrame.NecrolordFrame, "CENTER", 52, 2)
     AZPRenownFullFrame.NecrolordFrame.Level:SetText("0")
     AZPRenownFullFrame.NecrolordFrame.Level:SetJustifyV("CENTER")
     AZPRenownFullFrame.NecrolordFrame.Level:SetTextColor(1, 1, 1, 1)
 
     AZPRenownFullFrame.NecrolordFrame.Anima = AZPRenownFullFrame.NecrolordFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
-    AZPRenownFullFrame.NecrolordFrame.Anima:SetSize(AZPRenownFullFrame.NecrolordFrame:GetWidth() * 0.25, AZPRenownFullFrame.NecrolordFrame:GetHeight())
+    AZPRenownFullFrame.NecrolordFrame.Anima:SetSize(AZPRenownFullFrame.NecrolordFrame:GetWidth() * 0.3, AZPRenownFullFrame.NecrolordFrame:GetHeight())
     AZPRenownFullFrame.NecrolordFrame.Anima:SetPoint("CENTER", AZPRenownFullFrame.NecrolordFrame, "CENTER", 52, -30)
     AZPRenownFullFrame.NecrolordFrame.Anima:SetText("0")
     AZPRenownFullFrame.NecrolordFrame.Anima:SetJustifyV("TOP")
@@ -481,20 +481,20 @@ function AZPRenownCreateFullFrame()
     AZPRenownFullFrame.KyrianFrame.BG:SetAtlas("shadowlands-landingpage-renownbutton-kyrian")
 
     AZPRenownFullFrame.KyrianFrame.Name = AZPRenownFullFrame. KyrianFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-    AZPRenownFullFrame.KyrianFrame.Name:SetSize(AZPRenownFullFrame.KyrianFrame:GetWidth() * 0.75, AZPRenownFullFrame.KyrianFrame:GetHeight())
+    AZPRenownFullFrame.KyrianFrame.Name:SetSize(AZPRenownFullFrame.KyrianFrame:GetWidth() * 0.7, AZPRenownFullFrame.KyrianFrame:GetHeight())
     AZPRenownFullFrame.KyrianFrame.Name:SetPoint("LEFT", AZPRenownFullFrame.KyrianFrame, "LEFT", 0, -2)
     AZPRenownFullFrame.KyrianFrame.Name:SetText("Kyrian")
     AZPRenownFullFrame.KyrianFrame.Name:SetJustifyV("CENTER")
 
     AZPRenownFullFrame.KyrianFrame.Level = AZPRenownFullFrame.KyrianFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
-    AZPRenownFullFrame.KyrianFrame.Level:SetSize(AZPRenownFullFrame.KyrianFrame:GetWidth() * 0.25, AZPRenownFullFrame.KyrianFrame:GetHeight())
+    AZPRenownFullFrame.KyrianFrame.Level:SetSize(AZPRenownFullFrame.KyrianFrame:GetWidth() * 0.3, AZPRenownFullFrame.KyrianFrame:GetHeight())
     AZPRenownFullFrame.KyrianFrame.Level:SetPoint("CENTER", AZPRenownFullFrame.KyrianFrame, "CENTER", 52, 3)
     AZPRenownFullFrame.KyrianFrame.Level:SetText("0")
     AZPRenownFullFrame.KyrianFrame.Level:SetJustifyV("CENTER")
     AZPRenownFullFrame.KyrianFrame.Level:SetTextColor(1, 1, 1, 1)
 
     AZPRenownFullFrame.KyrianFrame.Anima = AZPRenownFullFrame.KyrianFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
-    AZPRenownFullFrame.KyrianFrame.Anima:SetSize(AZPRenownFullFrame.KyrianFrame:GetWidth() * 0.25, AZPRenownFullFrame.KyrianFrame:GetHeight())
+    AZPRenownFullFrame.KyrianFrame.Anima:SetSize(AZPRenownFullFrame.KyrianFrame:GetWidth() * 0.3, AZPRenownFullFrame.KyrianFrame:GetHeight())
     AZPRenownFullFrame.KyrianFrame.Anima:SetPoint("CENTER", AZPRenownFullFrame.KyrianFrame, "CENTER", 52, -30)
     AZPRenownFullFrame.KyrianFrame.Anima:SetText("0")
     AZPRenownFullFrame.KyrianFrame.Anima:SetJustifyV("TOP")
