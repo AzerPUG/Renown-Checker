@@ -1,7 +1,7 @@
 local AZPRenownCompactFrame, AZPRenownFullFrame, AZPRenownAltFrame = nil, nil, nil
 local EventFrame, OptionsFrame = nil, nil
 
-local AZPRenownVersion = 18
+local AZPRenownVersion = 19
 
 local CovenantNames =
 {
@@ -906,6 +906,8 @@ function AZPRenownOnEvent(_, event, ...)
         if ... == 1813 then AZPRenownFrameUpdateValues() end
     elseif event == "VARIABLES_LOADED" then
         if AZPRenownLevels == nil then AZPRenownLevels = {} end
+        if AZPRenownVars == nil then AZPRenownVars = {} AZPRenownVars.Position = {"CENTER", nil, nil, 0, 0} end
+        if AZPRenownVars.Size == nil then AZPRenownVars.Size = "Full" end
         OptionsFrame.ChangeSizeButton:SetText(string.format("Size: %s", AZPRenownVars.Size))
         AZPRenownFrameUpdateValues()
         C_Timer.After(1, function() AZPRenownCreateAltFrame() AZPRenownLoadPositionFrame() AZPRenownSetFrames() AZPRenownColorLoad() end)
@@ -990,8 +992,6 @@ function AZPRenownSetLevels(curGUID)
 end
 
 function AZPRenownLoadPositionFrame()
-    if AZPRenownVars == nil then AZPRenownVars = {} AZPRenownVars.Position = {"CENTER", nil, nil, 0, 0} end
-    if AZPRenownVars.Size == nil then AZPRenownVars.Size = "Full" end
     local curPos = AZPRenownVars.Position
 
     AZPRenownCompactFrame:ClearAllPoints()
