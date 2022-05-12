@@ -147,7 +147,7 @@ function AZPRenownCreateCompactFrame()
 
     AZPRenownCompactFrame.NightFaeFrame = CreateFrame("FRAME", nil, AZPRenownCompactFrame)
     AZPRenownCompactFrame.NightFaeFrame:SetSize(curWidth, curHeight)
-    AZPRenownCompactFrame.NightFaeFrame:SetPoint("TOP", -75, -50)
+    AZPRenownCompactFrame.NightFaeFrame:SetPoint("TOP", -70, -50)
 
     AZPRenownCompactFrame.NightFaeFrame.BG = AZPRenownCompactFrame.NightFaeFrame:CreateTexture(nil, "BACKGROUND")
     AZPRenownCompactFrame.NightFaeFrame.BG:SetSize(curWidth, curHeight)
@@ -186,7 +186,7 @@ function AZPRenownCreateCompactFrame()
 
     AZPRenownCompactFrame.VenthyrFrame = CreateFrame("FRAME", nil, AZPRenownCompactFrame)
     AZPRenownCompactFrame.VenthyrFrame:SetSize(curWidth, curHeight)
-    AZPRenownCompactFrame.VenthyrFrame:SetPoint("TOP", -25, -50)
+    AZPRenownCompactFrame.VenthyrFrame:SetPoint("LEFT", AZPRenownCompactFrame.NightFaeFrame,"RIGHT", -25, 0)
 
     AZPRenownCompactFrame.VenthyrFrame.BG = AZPRenownCompactFrame.VenthyrFrame:CreateTexture(nil, "BACKGROUND")
     AZPRenownCompactFrame.VenthyrFrame.BG:SetSize(curWidth, curHeight)
@@ -225,7 +225,7 @@ function AZPRenownCreateCompactFrame()
 
     AZPRenownCompactFrame.NecrolordFrame = CreateFrame("FRAME", nil, AZPRenownCompactFrame)
     AZPRenownCompactFrame.NecrolordFrame:SetSize(curWidth, curHeight)
-    AZPRenownCompactFrame.NecrolordFrame:SetPoint("TOP", 25, -50)
+    AZPRenownCompactFrame.NecrolordFrame:SetPoint("LEFT", AZPRenownCompactFrame.VenthyrFrame,"RIGHT", -25, 0)
 
     AZPRenownCompactFrame.NecrolordFrame.BG = AZPRenownCompactFrame.NecrolordFrame:CreateTexture(nil, "BACKGROUND")
     AZPRenownCompactFrame.NecrolordFrame.BG:SetSize(curWidth, curHeight)
@@ -264,7 +264,7 @@ function AZPRenownCreateCompactFrame()
 
     AZPRenownCompactFrame.KyrianFrame = CreateFrame("FRAME", nil, AZPRenownCompactFrame)
     AZPRenownCompactFrame.KyrianFrame:SetSize(curWidth, curHeight)
-    AZPRenownCompactFrame.KyrianFrame:SetPoint("TOP", 75, -50)
+    AZPRenownCompactFrame.KyrianFrame:SetPoint("LEFT", AZPRenownCompactFrame.NecrolordFrame,"RIGHT", -30, 0)
 
     AZPRenownCompactFrame.KyrianFrame.BG = AZPRenownCompactFrame.KyrianFrame:CreateTexture(nil, "BACKGROUND")
     AZPRenownCompactFrame.KyrianFrame.BG:SetSize(curWidth, curHeight)
