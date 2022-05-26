@@ -1,7 +1,7 @@
 local AZPRenownCompactFrame, AZPRenownFullFrame, AZPRenownAltFrame = nil, nil, nil
 local EventFrame, OptionsFrame = nil, nil
 
-local AZPRenownVersion = 19
+local AZPRenownVersion = 20
 
 local CovenantNames =
 {
@@ -80,12 +80,7 @@ function AZPRenownOnLoad()
     OptionsFrame.RepositionButton:SetSize(75, 20)
     OptionsFrame.RepositionButton:SetPoint("LEFT", OptionsFrame.ChangeSizeButton, "RIGHT", 5, 0)
     OptionsFrame.RepositionButton:SetText("Reposition")
-    OptionsFrame.RepositionButton:SetScript("OnClick",
-    function()
-        AZPRenownCompactFrame:ClearAllPoints() AZPRenownCompactFrame:SetPoint("CENTER", 0, 0)
-        AZPRenownFullFrame:ClearAllPoints() AZPRenownFullFrame:SetPoint("CENTER", 0, 0)
-        AZPRenownSavePositionFrame()
-    end)
+    OptionsFrame.RepositionButton:SetScript("OnClick", function() AZPRenownResetPosition() end)
 
     OptionsFrame.TextColorButton = CreateFrame("Button", nil, OptionsFrame, "UIPanelButtonTemplate")
     OptionsFrame.TextColorButton:SetSize(75, 20)
@@ -1012,6 +1007,12 @@ function AZPRenownLoadPositionFrame()
     AZPRenownAltFrame:SetPoint(AltPos[1], AltPos[4], AltPos[5])
 end
 
+function AZPRenownResetPosition()
+    AZPRenownCompactFrame:ClearAllPoints() AZPRenownCompactFrame:SetPoint("CENTER", 0, 0)
+    AZPRenownFullFrame:ClearAllPoints() AZPRenownFullFrame:SetPoint("CENTER", 0, 0)
+    AZPRenownSavePositionFrame()
+end
+
 function AZPRenownSavePositionFrame()
     local v1, v2, v3, v4, v5 = nil, nil, nil, nil, nil
         if AZPRenownVars.Size == "Compact" then v1, v2, v3, v4, v5 = AZPRenownCompactFrame:GetPoint()
@@ -1085,8 +1086,20 @@ AZP.SlashCommands["RC"] = function()
     AZPRenownShowHideToggle()
 end
 
+AZP.SlashCommands["RC Position"] = function()
+    AZPRenownResetPosition()
+end
+
 AZP.SlashCommands["rc"] = AZP.SlashCommands["RC"]
 AZP.SlashCommands["renown"] = AZP.SlashCommands["RC"]
 AZP.SlashCommands["Renown"] = AZP.SlashCommands["RC"]
 AZP.SlashCommands["renown checker"] = AZP.SlashCommands["RC"]
 AZP.SlashCommands["Renown Checker"] = AZP.SlashCommands["RC"]
+
+AZP.SlashCommands["rc position"] = AZP.SlashCommands["RC Position"]
+AZP.SlashCommands["RC position"] = AZP.SlashCommands["RC Position"]
+AZP.SlashCommands["rc Position"] = AZP.SlashCommands["RC Position"]
+AZP.SlashCommands["RC Pos"] = AZP.SlashCommands["RC Position"]
+AZP.SlashCommands["rc Pos"] = AZP.SlashCommands["RC Position"]
+AZP.SlashCommands["RC pos"] = AZP.SlashCommands["RC Position"]
+AZP.SlashCommands["rc pos"] = AZP.SlashCommands["RC Position"]
