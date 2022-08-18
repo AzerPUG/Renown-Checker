@@ -1,7 +1,7 @@
 local AZPRenownCompactFrame, AZPRenownFullFrame, AZPRenownAltFrame = nil, nil, nil
 local EventFrame, OptionsFrame = nil, nil
 
-local AZPRenownVersion = 21
+local AZPRenownVersion = 22
 
 local CovenantNames =
 {
@@ -327,6 +327,7 @@ function AZPRenownCreateFullFrame()
     AZPRenownFullFrame.Header:SetSize(AZPRenownFullFrame:GetWidth(), 50)
     AZPRenownFullFrame.Header:SetPoint("TOP", 0, -5)
     AZPRenownFullFrame.Header:SetText(string.format("AzerPUG's\nRenown Checker v%s", AZPRenownVersion))
+    AZPRenownFullFrame.Header:SetText("AzerPUG's\nRenown Checker")
 
     AZPRenownFullFrame.OpenOptionPanelButton = CreateFrame("Frame", nil, AZPRenownFullFrame)
     AZPRenownFullFrame.OpenOptionPanelButton:SetSize(15, 15)
