@@ -1,4 +1,4 @@
-## Interface: 90207
+## Interface: 100000
 ## Title: |cFF00FFFFAzerPUG's|r |cFFFF00FFRenown Checker|r
 ## Author: Tex & AzerPUG Gaming Community (www.azerpug.com/discord)
 ## OptionalDeps: AzerPUGsCore
